@@ -9,30 +9,16 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseMotionAdapter;
 
-/*
- * This class represents the 'graphical user interface' or 'presentation' layer or 'frame'. Its job is to continuously 
- * read input from the user (i.e. keyboard, mouse) and to render (draw) a universe or 'logical' layer. Also, it
- * continuously prompts the logical layer to update itself based on the number of milliseconds that have elapsed.
- * 
- * The presentation layer generally does not try to affect the logical layer; most information
- * passes "upwards" from the logical layer to the presentation layer.
- */
 
 public class AnimationFrame extends JFrame {
 
 	final public static int FRAMES_PER_SECOND = 60;
-	final long REFRESH_TIME = 1000 / FRAMES_PER_SECOND;	//MILLISECONDS
-	final boolean DISPLAY_TIMING = true;
-
 	final public static int SCREEN_HEIGHT = 600;
 	final public static int SCREEN_WIDTH = 800;
 
 	private int screenCenterX = SCREEN_WIDTH / 2;
 	private int screenCenterY = SCREEN_HEIGHT / 2;
 
-	final private static boolean SHOW_GRID = true;
-	
-	//scale at which to render the universe. When 1, each logical unit represents 1 pixel in both x and y dimension
 	private double scale = 1;
 	//point in universe on which the screen will center
 	private double logicalCenterX = 0;		
@@ -46,9 +32,12 @@ public class AnimationFrame extends JFrame {
 
 	private static boolean stop = false;
 
-	protected long total_elapsed_time = 0;
-	protected long lastRefreshTime = 0;
-	protected long deltaTime = 0;
+	private long current_time = 0;								//MILLISECONDS
+	private long next_refresh_time = 0;							//MILLISECONDS
+	private long last_refresh_time = 0;
+	private long minimum_delta_time = 1000 / FRAMES_PER_SECOND;	//MILLISECONDS
+	private long actual_delta_time = 0;							//MILLISECONDS
+	protected long elapsed_time = 0;
 	private boolean isPaused = false;
 
 	protected KeyboardInput keyboard = new KeyboardInput();
@@ -57,16 +46,12 @@ public class AnimationFrame extends JFrame {
 	//local (and direct references to various objects in universe ... should reduce lag by avoiding dynamic lookup
 	private Animation animation = null;
 	private DisplayableSprite player1 = null;
-	private ArrayList<DisplayableSprite> sprites = null;
+	private ArrayList<DisplayableSprite> sprites =  (ArrayList<DisplayableSprite>) Main.nodes.clone();
 	private ArrayList<Background> backgrounds = null;
 	private Background background = null;
 	boolean centreOnPlayer = false;
 	int universeLevel = 0;
 	
-	/*
-	 * Much of the following constructor uses a library called Swing to create various graphical controls. You do not need
-	 * to modify this code to create an animation, but certainly many custom controls could be added.
-	 */
 	public AnimationFrame(Animation animation)
 	{
 		super("");
@@ -117,7 +102,7 @@ public class AnimationFrame extends JFrame {
 				contentPane_mouseMoved(e);
 			}
 		});
-
+		
 		Container cp = getContentPane();
 		cp.setBackground(Color.BLACK);
 		cp.setLayout(null);
@@ -158,11 +143,6 @@ public class AnimationFrame extends JFrame {
 
 	}
 
-	/* 
-	 * The entry point into an Animation. The presentation (gui) and the logical layers should run on separate
-	 * threads. This allows the presentation layer to remain responsive to user input while the logical is updating
-	 * its state. The universe (a.k.a. logical) thread is created below.
-	 */	
 	public void start()
 	{
 		Thread thread = new Thread()
@@ -175,38 +155,11 @@ public class AnimationFrame extends JFrame {
 		};
 
 		thread.start();
-		//start the animation loop so that it can initialize at the same time as a title screen being visible
-		//as it runs on a separate thread, it will execute asynchronously
-		displayTitleScreen();
-				
 		System.out.println("main() complete");
 
-	}
-	
-	/*
-	 * You can add a title screen here using a JDialog or similar
-	 */
-	protected void displayTitleScreen() {
-		
-	}
-	
-	/*
-	 * The animationLoop runs on the logical thread, and is only active when the universe needs to be
-	 * updated. There are actually two loops here. The outer loop cycles through all universes as provided
-	 * by the animation. Whenever a universe is 'complete', the animation is asked for the next universe;
-	 * if there is none, then the loop exits and this method terminates
-	 * 
-	 * The inner loop attempts to update the universe regularly, whenever enough milliseconds have
-	 * elapsed to move to the next 'frame' (i.e. the refresh rate). Once the universe has updated itself,
-	 * the code then moves to a rendering phase where the universe is rendered to the gui and the
-	 * controls updated. These two steps may take several milliseconds, but hopefully no more than the refresh rate.
-	 * When the refresh has finished, the loop (and thus the thread) goes to sleep until the next
-	 * refresh time. 
-	 */
+	}	
 	private void animationLoop() {
 
-		lastRefreshTime = System.currentTimeMillis();
-		
 		universe = animation.getNextUniverse();
 		universeLevel++;
 
@@ -221,12 +174,12 @@ public class AnimationFrame extends JFrame {
 			// main game loop
 			while (stop == false && universe.isComplete() == false) {
 
-				if (DISPLAY_TIMING == true) System.out.println(String.format("animation loop: %10s @ %6d", "sleep", System.currentTimeMillis() % 1000000));
-
 				//adapted from http://www.java-gaming.org/index.php?topic=24220.0
-				long target_wake_time = System.currentTimeMillis() + REFRESH_TIME;
+				last_refresh_time = System.currentTimeMillis();
+				next_refresh_time = current_time + minimum_delta_time;
+
 				//sleep until the next refresh time
-				while (System.currentTimeMillis() < target_wake_time)
+				while (current_time < next_refresh_time)
 				{
 					//allow other threads (i.e. the Swing thread) to do its work
 					Thread.yield();
@@ -237,25 +190,18 @@ public class AnimationFrame extends JFrame {
 					catch(Exception e) {    					
 					} 
 
+					//track current time
+					current_time = System.currentTimeMillis();
 				}
 
-				if (DISPLAY_TIMING == true) System.out.println(String.format("animation loop: %10s @ %6d  (+%4d ms)", "wake", System.currentTimeMillis() % 1000000, System.currentTimeMillis() - lastRefreshTime));
-
-				//track time that has elapsed since the last update, and note the refresh time
-				deltaTime = (isPaused ? 0 : System.currentTimeMillis() - lastRefreshTime);
-				lastRefreshTime = System.currentTimeMillis();
-				total_elapsed_time += deltaTime;
-				
 				//read input
 				keyboard.poll();
 				handleKeyboardInput();
 
-				//update logical
-				universe.update(keyboard, deltaTime);
-				if (DISPLAY_TIMING == true) System.out.println(String.format("animation loop: %10s @ %6d  (+%4d ms)", "logic", System.currentTimeMillis() % 1000000, System.currentTimeMillis() - lastRefreshTime));
+				//UPDATE STATE
+				updateTime();				
+				universe.update(keyboard, actual_delta_time);
 				
-				//update interface
-				updateControls();
 				//align animation frame with logical universe
 				if (player1 != null && centreOnPlayer) {
 					this.logicalCenterX = player1.getCenterX();
@@ -266,11 +212,12 @@ public class AnimationFrame extends JFrame {
 					this.logicalCenterY = universe.getYCenter();
 				}
 
+				//REFRESH
+				updateControls();
 				this.repaint();
-
 			}
 
-			handleUniverseComplete();
+			universe = animation.getNextUniverse();
 			keyboard.poll();
 
 		}
@@ -281,16 +228,22 @@ public class AnimationFrame extends JFrame {
 
 	}
 
-	private void handleUniverseComplete() {
-		universe = animation.getNextUniverse();		
-	}
 	protected void updateControls() {
 		
-		this.lblTop.setText(String.format("Time: %9.3f;  centerX: %5d; centerY: %5d;  scale: %3.3f", total_elapsed_time / 1000.0, screenCenterX, screenCenterY, scale));
+		this.lblTop.setText(String.format("Time: %9.3f;  centerX: %5d; centerY: %5d;  scale: %3.3f", elapsed_time / 1000.0, screenCenterX, screenCenterY, scale));
 		this.lblBottom.setText(Integer.toString(universeLevel));
 		if (universe != null) {
 			this.lblBottom.setText(universe.toString());
 		}
+
+	}
+
+	private void updateTime() {
+
+		current_time = System.currentTimeMillis();
+		actual_delta_time = (isPaused ? 0 : current_time - last_refresh_time);
+		last_refresh_time = current_time;
+		elapsed_time += actual_delta_time;
 
 	}
 
@@ -333,19 +286,23 @@ public class AnimationFrame extends JFrame {
 		}
 		if (keyboard.keyDown(88)) {
 			screenCenterY -= 1;
-		}		
+		}	
+		
+		
+		if (keyboard.keyDown(82)) {
+			Recursive recursiveSolver = new Recursive();
+			recursiveSolver.solve();
+		}
+		if (keyboard.keyDown(78)) {
+			NearestNeighbour neighbourSolver = new NearestNeighbour(Main.nodes);
+			neighbourSolver.solve();
+		}
+		if (keyboard.keyDown(81)) {
+			AntColony antSolver = new AntColony();
+			antSolver.solve();
+		}
 	}
 
-	/*
-	 * This method will run whenever the universe needs to be rendered. The animation loop calls it
-	 * by invoking the repaint() method.
-	 * 
-	 * The work is reasonably simple. First, all backgrounds are rendered from "furthest" to "closest"
-	 * Then, all sprites are rendered in order. Observe that the logical coordinates are continuously
-	 * being translated to screen coordinates. Thus, how the universe is rendered is determined by
-	 * the gui, but what is being rendered is determined by the universe. In other words, a sprite may
-	 * be in a given logical location, but where it is rendered also depends on scale and camera placement
-	 */
 	class DrawPanel extends JPanel {
 
 		public void paintComponent(Graphics g)
@@ -374,40 +331,8 @@ public class AnimationFrame extends JFrame {
 					}
 				}				
 			}
-			
-			if (SHOW_GRID) {
-				for (int x = 0; x <= SCREEN_WIDTH; x+=50) {
-					if (x % 100 == 0) {
-						g.setColor(Color.GRAY);						
-					} else {
-						g.setColor(Color.DARK_GRAY);						
-					}					
-					g.drawLine(x, 0, x, SCREEN_HEIGHT);
-				}
-				for (int y = 0; y <= SCREEN_HEIGHT; y+= 50) {
-					if (y % 100 == 0) {
-						g.setColor(Color.GRAY);						
-					} else {
-						g.setColor(Color.DARK_GRAY);						
-					}
-					g.drawLine(0, y, SCREEN_WIDTH, y);
-				}
-			}			
-			
-			if (DISPLAY_TIMING == true) System.out.println(String.format("animation loop: %10s @ %6d  (+%4d ms)", "interface", System.currentTimeMillis() % 1000000, System.currentTimeMillis() - lastRefreshTime));
-			
 		}
 		
-		/*
-		 * The algorithm for rendering a background may appear complex, but you can think of it as
-		 * 'tiling' the screen from top left to bottom right. Each time, the gui determines a screen coordinate
-		 * that has not yet been covered. It then asks the background (which is part of the universe) for the tile
-		 * that would cover the equivalent logical coordinate. This tile has height and width, which allows
-		 * the gui to draw the tile and to then move to the screen coordinate at the same minY and to the right of this tile.
-		 * Again, the background is asked for the tile that would cover this coordinate.
-		 * When eventually this coordinate is off the right hand edge of the screen, then move to the left of the screen
-		 * but below the previously drawn tile. Repeat until the entire panel is covered.
-		 */
 		private void paintBackground(Graphics g, Background background) {
 			
 			if ((g == null) || (background == null)) {
@@ -484,6 +409,8 @@ public class AnimationFrame extends JFrame {
 	}
 	
 	protected void contentPane_mouseMoved(MouseEvent e) {
+//		MouseInput.screenX = e.getX();
+//		MouseInput.screenY = e.getY();
 		Point point = this.getContentPane().getMousePosition();
 		if (point != null) {
 			MouseInput.screenX = point.x;		
@@ -502,9 +429,24 @@ public class AnimationFrame extends JFrame {
 	protected void thisContentPane_mousePressed(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			MouseInput.leftButtonDown = true;
+			
+			Node sprite = new Node(MouseInput.logicalX, MouseInput.logicalY);
+		    Main.nodes.add(sprite);
+		    sprites.add(sprite);
 		} else if (e.getButton() == MouseEvent.BUTTON3) {
 			MouseInput.rightButtonDown = true;
+			
+			for (DisplayableSprite sprite : sprites) {
+				if (sprite.getMinX() < MouseInput.logicalX && MouseInput.logicalX < sprite.getMaxX()) {
+					if (sprite.getMinY() < MouseInput.logicalY && MouseInput.logicalY < sprite.getMaxY()) {
+						sprite.setDispose(true);
+						
+					}
+					
+				}
+			}
 		} else {
+			System.out.println(e.getButton());
 			//DO NOTHING
 		}
 	}
@@ -526,4 +468,6 @@ public class AnimationFrame extends JFrame {
 	protected void contentPane_mouseExited(MouseEvent e) {
 		contentPane_mouseMoved(e);
 	}
+	
+	
 }
