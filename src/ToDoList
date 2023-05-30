@@ -18,3 +18,8 @@ TODO LIST
 -Settings to add:
 -show current test being run visually
 -edge weight
+
+
+
+g.setColor(Color.WHITE);
+g.drawLine(0,0, 200, 200);
