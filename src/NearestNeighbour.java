@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class NearestNeighbour {
+public class NearestNeighbour implements Solver {
 	
 	private ArrayList<Node> nodes;
 	ArrayList<Node> bestPath = new ArrayList<Node>();

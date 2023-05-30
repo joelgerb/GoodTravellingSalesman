@@ -1,12 +1,11 @@
 import java.util.*;
 
-
-
-public class Recursive {
+public class Recursive implements Solver {
 	
 		static ArrayList<Node> bestPath = new ArrayList<Node>();
 		static Double bestLength = Double.POSITIVE_INFINITY;
-	   public static ArrayList<Node> Generate ( ArrayList<Node> permutation, ArrayList<Node> elements, Boolean[] positions ) {
+		
+		public static ArrayList<Node> Generate ( ArrayList<Node> permutation, ArrayList<Node> elements, Boolean[] positions ) {
 		   ArrayList<Node> path = new ArrayList<Node>();
 		   
 	        if ( permutation.size() == elements.size() ) {
@@ -40,7 +39,7 @@ public class Recursive {
 	        }
 	        return bestPath;
 	    }
-	   public static void solve(){
+	   public void solve(){
 
 	        ArrayList<Node> permutation = new ArrayList<Node>();
 	        ArrayList<Node> elements = new ArrayList<Node>(Main.nodes);
