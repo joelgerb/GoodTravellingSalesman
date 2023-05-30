@@ -292,6 +292,7 @@ public class AnimationFrame extends JFrame {
 		if (keyboard.keyDown(82)) {
 			Recursive recursiveSolver = new Recursive();
 			recursiveSolver.solve();
+			recursiveSolver = null;
 		}
 		if (keyboard.keyDown(78)) {
 			NearestNeighbour neighbourSolver = new NearestNeighbour(Main.nodes);
