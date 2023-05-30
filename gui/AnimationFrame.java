@@ -333,6 +333,23 @@ public class AnimationFrame extends JFrame {
 					}
 				}				
 			}
+			
+			if (Recursive.bestPath.size() > 0) {
+				Node first = null;
+				Node last = null;
+				g.setColor(Color.WHITE);
+				for (Node node : Recursive.bestPath) {
+					if (last != null) {
+						g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) node.getCenterX() + 400, (int) node.getCenterY() + 300);
+						
+					} else {
+						first = node;
+					}
+					
+					last = node;
+				}
+				g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) first.getCenterX() + 400, (int) first.getCenterY() + 300);
+			}
 		}
 		
 		private void paintBackground(Graphics g, Background background) {
