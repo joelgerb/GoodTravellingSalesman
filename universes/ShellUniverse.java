@@ -89,6 +89,7 @@ public class ShellUniverse implements Universe {
 		for (int i = 0; i < disposalList.size(); i++) {
 			DisplayableSprite sprite = disposalList.get(i);
 			sprites.remove(sprite);
+			Main.nodes.remove(sprite);
     	}
 		
 		//clear disposal list if necessary

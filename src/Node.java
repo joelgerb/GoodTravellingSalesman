@@ -12,8 +12,8 @@ public class Node implements DisplayableSprite {
 	private static Image image;	
 	private double centerX = 0;
 	private double centerY = 0;
-	private double width = 50;
-	private double height = 50;
+	private double width = 25;
+	private double height = 25;
 	private boolean dispose = false;	
 
 	private final double VELOCITY = 200;
@@ -33,7 +33,7 @@ public class Node implements DisplayableSprite {
 		
 		if (image == null) {
 			try {
-				image = ImageIO.read(new File("res/simple-sprite.png"));
+				image = ImageIO.read(new File("res/node.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
