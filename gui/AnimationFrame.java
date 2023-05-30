@@ -322,11 +322,13 @@ public class AnimationFrame extends JFrame {
 					DisplayableSprite sprite = activeSprite;
 					if (sprite.getVisible()) {
 						if (sprite.getImage() != null) {
-							g.drawImage(sprite.getImage(), translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()), null);
+							g.drawImage(sprite.getImage(), translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()), null);						
 						}
 						else {
 							g.setColor(Color.BLUE);
 							g.fillRect(translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()));
+//							g.drawLine(translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getMaxX()), scaleLogicalY(sprite.getMaxY()));
+
 						}
 					}
 				}				
