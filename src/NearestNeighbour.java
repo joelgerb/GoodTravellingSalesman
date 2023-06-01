@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class NearestNeighbour implements Solver {
 	
 	private ArrayList<Node> nodes;
-	ArrayList<Node> bestPath = new ArrayList<Node>();
+	static ArrayList<Node> bestPath = null;
 	
 	public NearestNeighbour(ArrayList<Node> nodes) {
 		this.nodes = nodes;
@@ -15,8 +15,12 @@ public class NearestNeighbour implements Solver {
 		Node firstNode = nodes.get(0);
 		Node currentNode = nodes.get(0);
 		Node nextNode;
+		bestPath = new ArrayList<Node>();
 		
 		ArrayList<Node> unvisitedNodes = new ArrayList<Node>(nodes);
+		
+		Recursive.bestPath = null;
+		
 		bestPath.add(nodes.get(0));
 		unvisitedNodes.remove(0);
 		

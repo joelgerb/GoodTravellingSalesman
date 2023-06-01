@@ -323,14 +323,50 @@ public class AnimationFrame extends JFrame {
 					DisplayableSprite sprite = activeSprite;
 					if (sprite.getVisible()) {
 						if (sprite.getImage() != null) {
-							g.drawImage(sprite.getImage(), translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()), null);
+							g.drawImage(sprite.getImage(), translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()), null);						
 						}
 						else {
 							g.setColor(Color.BLUE);
 							g.fillRect(translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()));
+//							g.drawLine(translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getMaxX()), scaleLogicalY(sprite.getMaxY()));
+
 						}
 					}
 				}				
+			}
+			
+			if (Recursive.bestPath != null) {
+				Node first = null;
+				Node last = null;
+				g.setColor(Color.WHITE);
+				for (Node node : Recursive.bestPath) {
+					if (last != null) {
+						g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) node.getCenterX() + 400, (int) node.getCenterY() + 300);
+						
+					} else {
+						first = node;
+					}
+					
+					last = node;
+				}
+				g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) first.getCenterX() + 400, (int) first.getCenterY() + 300);
+			}
+			
+			if (NearestNeighbour.bestPath != null) {
+				Node first = null;
+				Node last = null;
+				g.setColor(Color.WHITE);
+				for (Node node : NearestNeighbour.bestPath) {
+					if (last != null) {
+						g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) node.getCenterX() + 400, (int) node.getCenterY() + 300);
+						
+					} else {
+						first = node;
+					}
+					
+					last = node;
+				}
+				g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) first.getCenterX() + 400, (int) first.getCenterY() + 300);
 			}
 		}
 		
