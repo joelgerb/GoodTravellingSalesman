@@ -6,6 +6,12 @@ public class Recursive implements Solver {
 	static ArrayList<Node> bestPath = new ArrayList<Node>();
 	static Double bestLength = Double.POSITIVE_INFINITY;
 	
+	Recursive(){
+		this.bestLength = Double.POSITIVE_INFINITY;
+		this.bestPath = bestPath;
+		
+	}
+	
 	public static ArrayList<Node> Generate ( ArrayList<Node> permutation, ArrayList<Node> elements, Boolean[] positions ) {
 	   ArrayList<Node> path = new ArrayList<Node>();
 	   
