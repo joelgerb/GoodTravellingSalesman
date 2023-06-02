@@ -13,13 +13,13 @@ import java.awt.event.MouseMotionAdapter;
 public class AnimationFrame extends JFrame {
 
 	final public static int FRAMES_PER_SECOND = 60;
-	final public static int SCREEN_HEIGHT = 600;
-	final public static int SCREEN_WIDTH = 800;
+	final public static int SCREEN_HEIGHT = 1000;
+	final public static int SCREEN_WIDTH = 1900;
 
 	private int screenCenterX = SCREEN_WIDTH / 2;
 	private int screenCenterY = SCREEN_HEIGHT / 2;
 
-	private double scale = 1;
+	private double scale = 0.99;
 	//point in universe on which the screen will center
 	private double logicalCenterX = 0;		
 	private double logicalCenterY = 0;
@@ -346,7 +346,7 @@ public class AnimationFrame extends JFrame {
 				g.setColor(Color.WHITE);
 				for (Node node : Recursive.bestPath) {
 					if (last != null) {
-						g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) node.getCenterX() + 400, (int) node.getCenterY() + 300);
+						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
 						
 					} else {
 						first = node;
@@ -354,7 +354,7 @@ public class AnimationFrame extends JFrame {
 					
 					last = node;
 				}
-				g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) first.getCenterX() + 400, (int) first.getCenterY() + 300);
+				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
 			}
 			
 			if (NearestNeighbour.bestPath != null) {
@@ -363,7 +363,7 @@ public class AnimationFrame extends JFrame {
 				g.setColor(Color.WHITE);
 				for (Node node : NearestNeighbour.bestPath) {
 					if (last != null) {
-						g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) node.getCenterX() + 400, (int) node.getCenterY() + 300);
+						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
 						
 					} else {
 						first = node;
@@ -371,7 +371,7 @@ public class AnimationFrame extends JFrame {
 					
 					last = node;
 				}
-				g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) first.getCenterX() + 400, (int) first.getCenterY() + 300);
+				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
 			}
 			
 			if (Random.bestPath != null) {
@@ -380,7 +380,7 @@ public class AnimationFrame extends JFrame {
 				g.setColor(Color.WHITE);
 				for (Node node : Random.bestPath) {
 					if (last != null) {
-						g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) node.getCenterX() + 400, (int) node.getCenterY() + 300);
+						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
 						
 					} else {
 						first = node;
@@ -388,7 +388,7 @@ public class AnimationFrame extends JFrame {
 					
 					last = node;
 				}
-				g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) first.getCenterX() + 400, (int) first.getCenterY() + 300);
+				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + 300, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + 300);
 			}
 		}
 		
