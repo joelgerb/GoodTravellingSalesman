@@ -13,8 +13,10 @@ import java.awt.event.MouseMotionAdapter;
 public class AnimationFrame extends JFrame {
 
 	final public static int FRAMES_PER_SECOND = 60;
-	final public static int SCREEN_HEIGHT = 1000;
-	final public static int SCREEN_WIDTH = 1900;
+//	final public static int SCREEN_HEIGHT = 800;
+//	final public static int SCREEN_WIDTH = 1500;
+	final public static int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 100;
+	final public static int SCREEN_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 50;
 
 	private int screenCenterX = SCREEN_WIDTH / 2;
 	private int screenCenterY = SCREEN_HEIGHT / 2;
