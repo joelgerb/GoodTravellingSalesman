@@ -100,7 +100,7 @@ public class ShellUniverse implements Universe {
 
 
 	public String toString() {
-		return "ShellUniverse";
+		return "Travelling Salesman";
 	}
 
 }

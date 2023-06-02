@@ -1,21 +1,18 @@
 import java.util.*;
 
 public class Recursive implements Solver {
+	 static ArrayList<Node> bestPath;
+	 static Double bestLength;
 	
-	static boolean running = false;
-	static ArrayList<Node> bestPath = new ArrayList<Node>();
-	static Double bestLength = Double.POSITIVE_INFINITY;
-	
-	Recursive(){
-		this.bestLength = Double.POSITIVE_INFINITY;
-		this.bestPath = bestPath;
+		public Recursive() {
+		 this.bestPath = new ArrayList<Node>();
+		 this.bestLength = Double.POSITIVE_INFINITY;
+		}
 		
-	}
-	
-	public static ArrayList<Node> Generate ( ArrayList<Node> permutation, ArrayList<Node> elements, Boolean[] positions ) {
-	   ArrayList<Node> path = new ArrayList<Node>();
-	   
-        if ( permutation.size() == elements.size() ) {
+		static ArrayList<Node> Generate ( ArrayList<Node> permutation, ArrayList<Node> elements, Boolean[] positions ) {
+		   ArrayList<Node> path = new ArrayList<Node>();
+		   
+	        if ( permutation.size() == elements.size() ) {
 
             for ( int i = 0; i < elements.size(); i++ )
                 path.add(permutation.get(i));
@@ -52,14 +49,18 @@ public class Recursive implements Solver {
         ArrayList<Node> elements = new ArrayList<Node>(Main.nodes);
         Boolean [] positions = new Boolean [Main.nodes.size()];
 
-        running = true;
+        NearestNeighbour.bestPath = null;
+        Random.bestPath = null;
         
         Arrays.fill(positions, Boolean.FALSE);
 
-        Generate ( permutation, elements, positions );
-        
-        running = false;
-   }
+
+	        Generate ( permutation, elements, positions );
+	        
+	        
+	   }
+
+
 
 }
 

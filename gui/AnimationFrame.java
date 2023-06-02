@@ -292,6 +292,7 @@ public class AnimationFrame extends JFrame {
 		if (keyboard.keyDown(82)) {
 			Recursive recursiveSolver = new Recursive();
 			recursiveSolver.solve();
+			recursiveSolver = null;
 		}
 		if (keyboard.keyDown(78)) {
 			NearestNeighbour neighbourSolver = new NearestNeighbour(Main.nodes);
@@ -300,6 +301,11 @@ public class AnimationFrame extends JFrame {
 		if (keyboard.keyDown(81)) {
 			AntColony antSolver = new AntColony();
 			antSolver.solve();
+		}
+		
+		if (keyboard.keyDown(90)) {
+			Random randomSolver = new Random(Main.nodes);
+			randomSolver.solve();
 		}
 	}
 
@@ -334,11 +340,45 @@ public class AnimationFrame extends JFrame {
 				}				
 			}
 			
-			if (Recursive.bestPath.size() > 0) {
+			if (Recursive.bestPath != null) {
 				Node first = null;
 				Node last = null;
 				g.setColor(Color.WHITE);
 				for (Node node : Recursive.bestPath) {
+					if (last != null) {
+						g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) node.getCenterX() + 400, (int) node.getCenterY() + 300);
+						
+					} else {
+						first = node;
+					}
+					
+					last = node;
+				}
+				g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) first.getCenterX() + 400, (int) first.getCenterY() + 300);
+			}
+			
+			if (NearestNeighbour.bestPath != null) {
+				Node first = null;
+				Node last = null;
+				g.setColor(Color.WHITE);
+				for (Node node : NearestNeighbour.bestPath) {
+					if (last != null) {
+						g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) node.getCenterX() + 400, (int) node.getCenterY() + 300);
+						
+					} else {
+						first = node;
+					}
+					
+					last = node;
+				}
+				g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) first.getCenterX() + 400, (int) first.getCenterY() + 300);
+			}
+			
+			if (Random.bestPath != null) {
+				Node first = null;
+				Node last = null;
+				g.setColor(Color.WHITE);
+				for (Node node : Random.bestPath) {
 					if (last != null) {
 						g.drawLine((int) last.getCenterX() + 400, (int) last.getCenterY() + 300, (int) node.getCenterX() + 400, (int) node.getCenterY() + 300);
 						
