@@ -277,19 +277,19 @@ public class AnimationFrame extends JFrame {
 			contentPane_mouseMoved(null);
 		}
 		
-		if (keyboard.keyDown(65)) {
-			screenCenterX += 1;
-		}
-		if (keyboard.keyDown(68)) {
-			screenCenterX -= 1;
-		}
-		if (keyboard.keyDown(83)) {
-			screenCenterY += 1;
-		}
-		if (keyboard.keyDown(88)) {
-			screenCenterY -= 1;
-		}	
-		
+//		if (keyboard.keyDown(65)) {
+//			screenCenterX += 1;
+//		}
+//		if (keyboard.keyDown(68)) {
+//			screenCenterX -= 1;
+//		}
+//		if (keyboard.keyDown(83)) {
+//			screenCenterY += 1;
+//		}
+//		if (keyboard.keyDown(88)) {
+//			screenCenterY -= 1;
+//		}	
+//		
 		
 		if (keyboard.keyDown(82)) {
 			Recursive recursiveSolver = new Recursive();
