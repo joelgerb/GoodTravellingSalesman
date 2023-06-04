@@ -58,15 +58,17 @@ public class Utilities {
 	}
 	
 	public static void updateTime() {
-
-		current_time = System.currentTimeMillis();
-		actual_delta_time = (current_time - last_refresh_time);
-		
-		if (actual_delta_time > 10) {
-			last_refresh_time = current_time;
-			elapsed_time += actual_delta_time;
-			AnimationFrame.lblBottom.setText(String.format("%9.2f", elapsed_time / 1000.0));
+		if (Main.runTimer) {
+			current_time = System.currentTimeMillis();
+			actual_delta_time = (current_time - last_refresh_time);
+			
+			if (actual_delta_time > 10) {
+				last_refresh_time = current_time;
+				elapsed_time += actual_delta_time;
+				AnimationFrame.lblBottom.setText(String.format("%9.2f", elapsed_time / 1000.0));
+			}
 		}
+		
 		
 
 	}

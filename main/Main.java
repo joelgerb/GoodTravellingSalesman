@@ -7,6 +7,7 @@ public class Main {
 	public static final int RANDOM_INDEX = 2;
 	public static final int ANTS_INDEX = 3;
 	public static boolean run = true;
+	public static boolean runTimer = true;
 	public static ArrayList<Node> nodes = new ArrayList<Node>();
 	public static Solver[] solvers = {
 			new Recursive(),

@@ -417,6 +417,9 @@ public class AnimationFrame extends JFrame {
 //			screenCenterY -= 1;
 //		}	
 //		
+		if (keyboard.keyDown(84)) {
+			Main.runTimer = !Main.runTimer;
+		}
 		
 		if (keyboard.keyDown(82)) {
 			btnRunRecursive_mouseClicked(null);
