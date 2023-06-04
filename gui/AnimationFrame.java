@@ -343,54 +343,54 @@ public class AnimationFrame extends JFrame {
 			}
 			
 			if (Recursive.bestPath != null) {
-				Node first = null;
+//				Node first = null;
 				Node last = null;
 				g.setColor(Color.WHITE);
 				for (Node node : Recursive.bestPath) {
 					if (last != null) {
 						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
 						
-					} else {
-						first = node;
+//					} else {
+//						first = node;
 					}
 					
 					last = node;
 				}
-				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
+//				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
 			}
 			
 			if (NearestNeighbour.bestPath != null) {
-				Node first = null;
+//				Node first = null;
 				Node last = null;
 				g.setColor(Color.WHITE);
 				for (Node node : NearestNeighbour.bestPath) {
 					if (last != null) {
 						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
 						
-					} else {
-						first = node;
+//					} else {
+//						first = node;
 					}
 					
 					last = node;
 				}
-				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
+//				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
 			}
 			
 			if (Random.bestPath != null) {
-				Node first = null;
+//				Node first = null;
 				Node last = null;
 				g.setColor(Color.WHITE);
 				for (Node node : Random.bestPath) {
 					if (last != null) {
 						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
 						
-					} else {
-						first = node;
+//					} else {
+//						first = node;
 					}
 					
 					last = node;
 				}
-				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + 300, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + 300);
+//				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + 300, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + 300);
 			}
 		}
 		

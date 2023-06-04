@@ -13,8 +13,9 @@ public class Recursive implements Solver {
 			ArrayList<Node> path = new ArrayList<Node>();
 		   
 	        if ( permutation.size() == elements.size() ) {
+	        	permutation.add(permutation.get(0));
 
-	            for ( int i = 0; i < elements.size(); i++ ) {
+	            for ( int i = 0; i < permutation.size(); i++ ) {
 	            	path.add(permutation.get(i));
 	            }
 	                
@@ -26,6 +27,7 @@ public class Recursive implements Solver {
 	            	bestLength = pathLength;
 	            	Utilities.printSolution(bestPath, pathLength);
 	            }
+	            permutation.remove(permutation.size()-1);
 	            
 
 
@@ -40,6 +42,7 @@ public class Recursive implements Solver {
                 Generate( permutation, elements, positions );
 
                 permutation.remove(permutation.size()-1);
+//                permutation.remove(permutation.size()-1);
                 positions[i] = Boolean.FALSE;
             }
         }
