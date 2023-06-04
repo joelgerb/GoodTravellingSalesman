@@ -28,11 +28,12 @@ public class AnimationFrame extends JFrame {
 
 	//basic controls on interface... these are protected so that subclasses can access
 	protected JPanel panel = null;
-	protected JButton btnPauseRun;
+//	protected JButton btnPauseRun;
 	protected JButton btnRunRecursive;
 	protected JButton btnRunNeighbour;
 	protected JButton btnRunRandom;
 	protected JButton btnRunAnts;
+	protected JButton btnNewRandomNode;
 	protected JLabel lblTop;
 	protected JLabel lblBottom;
 
@@ -118,19 +119,19 @@ public class AnimationFrame extends JFrame {
 		panel.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		getContentPane().add(panel, BorderLayout.CENTER);
 
-		btnPauseRun = new JButton("||");
-		btnPauseRun.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				btnPauseRun_mouseClicked(arg0);
-			}
-		});
-
-		btnPauseRun.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnPauseRun.setBounds(SCREEN_WIDTH - 64, 20, 52, 32);
-		btnPauseRun.setFocusable(false);
-		getContentPane().add(btnPauseRun);
-		getContentPane().setComponentZOrder(btnPauseRun, 0);
+//		btnPauseRun = new JButton("||");
+//		btnPauseRun.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent arg0) {
+//				btnPauseRun_mouseClicked(arg0);
+//			}
+//		});
+//
+//		btnPauseRun.setFont(new Font("Tahoma", Font.BOLD, 12));
+//		btnPauseRun.setBounds(SCREEN_WIDTH - 64, 20, 52, 32);
+//		btnPauseRun.setFocusable(false);
+//		getContentPane().add(btnPauseRun);
+//		getContentPane().setComponentZOrder(btnPauseRun, 0);
 		
 		
 		
@@ -200,6 +201,28 @@ public class AnimationFrame extends JFrame {
 		getContentPane().setComponentZOrder(btnRunAnts, 0);
 		
 		
+		
+		btnRunRandom.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRunRandom.setBounds(SCREEN_WIDTH - 435, 20, 95, 40);
+		btnRunRandom.setFocusable(false);
+		getContentPane().add(btnRunRandom);
+		getContentPane().setComponentZOrder(btnRunRandom, 0);
+		
+		
+		
+		btnNewRandomNode = new JButton("New Random Node");
+		btnNewRandomNode.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnNewRandomNode_mouseClicked(arg0);
+			}
+		});
+
+		btnNewRandomNode.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnNewRandomNode.setBounds(SCREEN_WIDTH - 160, 20, 150, 40);
+		btnNewRandomNode.setFocusable(false);
+		getContentPane().add(btnNewRandomNode);
+		getContentPane().setComponentZOrder(btnNewRandomNode, 0);
 		
 		
 		
@@ -326,16 +349,16 @@ public class AnimationFrame extends JFrame {
 
 	}
 
-	protected void btnPauseRun_mouseClicked(MouseEvent arg0) {
-		if (isPaused) {
-			isPaused = false;
-			this.btnPauseRun.setText("||");
-		}
-		else {
-			isPaused = true;
-			this.btnPauseRun.setText(">");
-		}
-	}
+//	protected void btnPauseRun_mouseClicked(MouseEvent arg0) {
+//		if (isPaused) {
+//			isPaused = false;
+//			this.btnPauseRun.setText("||");
+//		}
+//		else {
+//			isPaused = true;
+//			this.btnPauseRun.setText(">");
+//		}
+//	}
 	
 	protected void btnRunRecursive_mouseClicked(MouseEvent arg0) {
 		Recursive recursiveSolver = new Recursive();
@@ -361,15 +384,22 @@ public class AnimationFrame extends JFrame {
 		antSolver = null;
 	}
 	
+	protected void btnNewRandomNode_mouseClicked(MouseEvent arg0) {
+		Node sprite = new Node(Math.floor(Math.random() *((SCREEN_WIDTH - 10) - 30 + 1) + 30) - SCREEN_WIDTH / 2, Math.floor(Math.random() *((SCREEN_HEIGHT - 10) - 70 + 1) + 70) - SCREEN_HEIGHT / 2);
+	    Main.nodes.add(sprite);
+	    sprites.add(sprite);
+	}
+	
+	
 
 	private void handleKeyboardInput() {
 		
-		if (keyboard.keyDown(80) && ! isPaused) {
-			btnPauseRun_mouseClicked(null);	
-		}
-		if (keyboard.keyDown(79) && isPaused ) {
-			btnPauseRun_mouseClicked(null);
-		}
+//		if (keyboard.keyDown(80) && ! isPaused) {
+//			btnPauseRun_mouseClicked(null);	
+//		}
+//		if (keyboard.keyDown(79) && isPaused ) {
+//			btnPauseRun_mouseClicked(null);
+//		}
 		if (keyboard.keyDown(112)) {
 			scale *= 1.01;
 			contentPane_mouseMoved(null);
@@ -408,6 +438,10 @@ public class AnimationFrame extends JFrame {
 		if (keyboard.keyDown(81)) {
 			btnRunAnts_mouseClicked(null);
 		}
+		
+		if (keyboard.keyDown(80)) {
+			btnNewRandomNode_mouseClicked(null);
+		}
 	}
 
 	class DrawPanel extends JPanel {
@@ -440,6 +474,11 @@ public class AnimationFrame extends JFrame {
 					}
 				}				
 			}
+			
+			
+//			for (Solver solver : solvers) {
+//				
+//			}
 			
 			if (Recursive.bestPath != null) {
 //				Node first = null;
