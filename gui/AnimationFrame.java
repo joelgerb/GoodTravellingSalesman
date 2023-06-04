@@ -21,7 +21,7 @@ public class AnimationFrame extends JFrame {
 	private int screenCenterX = SCREEN_WIDTH / 2;
 	private int screenCenterY = SCREEN_HEIGHT / 2;
 
-	private double scale = 0.99;
+	private double scale = 1.0;
 	//point in universe on which the screen will center
 	private double logicalCenterX = 0;		
 	private double logicalCenterY = 0;
