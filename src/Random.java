@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
 public class Random implements Solver {
-	
 	private ArrayList<Node> nodes;
 	static ArrayList<Node> bestPath = null;
 	
