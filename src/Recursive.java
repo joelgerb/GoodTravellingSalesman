@@ -5,11 +5,7 @@ public class Recursive implements Solver {
 	private ArrayList<Node> bestPath = null;
 	static Double bestLength;
 	
-	private long started_time;
-	private long current_time;
-	private long actual_delta_time;
-	private long last_refresh_time;
-	private long elapsed_time = 0;
+	
 	
 	
 //		public Recursive(ArrayList<Node> nodes) {
@@ -32,10 +28,12 @@ public class Recursive implements Solver {
 	        
 	        Arrays.fill(positions, Boolean.FALSE);
 	        
-	        startTime();
+	        Utilities.startTime();
 	        
 	        Generate ( permutation, nodes, positions );
 		        
+	        Utilities.finalUpdateTime(bestLength);
+			
 		   }
 
 
@@ -44,7 +42,7 @@ public class Recursive implements Solver {
 		private ArrayList<Node> Generate ( ArrayList<Node> permutation, ArrayList<Node> elements, Boolean[] positions ) {
 			ArrayList<Node> path = new ArrayList<Node>();
 			
-			updateTime();
+			Utilities.updateTime();
 		   
 	        if ( permutation.size() == elements.size() ) {
 	        	permutation.add(permutation.get(0));
@@ -84,22 +82,7 @@ public class Recursive implements Solver {
         return bestPath;
     }
 		
-		private void startTime() {
-			elapsed_time = 0;
-			started_time = System.currentTimeMillis();
-			last_refresh_time = started_time;
-		}
 		
-		private void updateTime() {
-
-			current_time = System.currentTimeMillis();
-			actual_delta_time = (current_time - last_refresh_time);
-			last_refresh_time = current_time;
-			elapsed_time += actual_delta_time;
-			
-			AnimationFrame.lblBottom.setText(String.format("%9.3f", elapsed_time / 1000.0));
-
-		}
 
 	@Override
 	public ArrayList<Node> getBestPath() {
