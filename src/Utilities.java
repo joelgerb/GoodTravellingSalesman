@@ -39,4 +39,12 @@ public class Utilities {
 		
 		return totalDistance;
 	}
+	
+	public static void clearBestPaths() {
+		Recursive.bestPath = null;
+		NearestNeighbour.bestPath = null;
+        Random.bestPath = null;
+        AntColony.bestPath = null;
+	}
+	
 }

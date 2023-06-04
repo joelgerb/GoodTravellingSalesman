@@ -29,6 +29,10 @@ public class AnimationFrame extends JFrame {
 	//basic controls on interface... these are protected so that subclasses can access
 	protected JPanel panel = null;
 	protected JButton btnPauseRun;
+	protected JButton btnRunRecursive;
+	protected JButton btnRunNeighbour;
+	protected JButton btnRunRandom;
+	protected JButton btnRunAnts;
 	protected JLabel lblTop;
 	protected JLabel lblBottom;
 
@@ -123,10 +127,83 @@ public class AnimationFrame extends JFrame {
 		});
 
 		btnPauseRun.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnPauseRun.setBounds(SCREEN_WIDTH - 64, 20, 48, 32);
+		btnPauseRun.setBounds(SCREEN_WIDTH - 64, 20, 52, 32);
 		btnPauseRun.setFocusable(false);
 		getContentPane().add(btnPauseRun);
 		getContentPane().setComponentZOrder(btnPauseRun, 0);
+		
+		
+		
+		
+		btnRunRecursive = new JButton("Recursive");
+		btnRunRecursive.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnRunRecursive_mouseClicked(arg0);
+			}
+		});
+
+		btnRunRecursive.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRunRecursive.setBounds(SCREEN_WIDTH - 700, 20, 95, 40);
+		btnRunRecursive.setFocusable(false);
+		getContentPane().add(btnRunRecursive);
+		getContentPane().setComponentZOrder(btnRunRecursive, 0);
+		
+		
+		
+		
+		btnRunNeighbour = new JButton("Nearest Neighbour");
+		btnRunNeighbour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnRunNeighbour_mouseClicked(arg0);
+			}
+		});
+
+		btnRunNeighbour.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRunNeighbour.setBounds(SCREEN_WIDTH - 595, 20, 150, 40);
+		btnRunNeighbour.setFocusable(false);
+		getContentPane().add(btnRunNeighbour);
+		getContentPane().setComponentZOrder(btnRunNeighbour, 0);
+		
+		
+		
+		
+		btnRunRandom = new JButton("Random");
+		btnRunRandom.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnRunRandom_mouseClicked(arg0);
+			}
+		});
+
+		btnRunRandom.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRunRandom.setBounds(SCREEN_WIDTH - 435, 20, 95, 40);
+		btnRunRandom.setFocusable(false);
+		getContentPane().add(btnRunRandom);
+		getContentPane().setComponentZOrder(btnRunRandom, 0);
+		
+		
+		
+		btnRunAnts = new JButton("Ant Colony");
+		btnRunAnts.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnRunAnts_mouseClicked(arg0);
+			}
+		});
+
+		btnRunAnts.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRunAnts.setBounds(SCREEN_WIDTH - 330, 20, 100, 40);
+		btnRunAnts.setFocusable(false);
+		getContentPane().add(btnRunAnts);
+		getContentPane().setComponentZOrder(btnRunAnts, 0);
+		
+		
+		
+		
+		
+		
 
 		lblTop = new JLabel("Time: ");
 		lblTop.setForeground(Color.WHITE);
@@ -259,6 +336,31 @@ public class AnimationFrame extends JFrame {
 			this.btnPauseRun.setText(">");
 		}
 	}
+	
+	protected void btnRunRecursive_mouseClicked(MouseEvent arg0) {
+		Recursive recursiveSolver = new Recursive();
+		recursiveSolver.solve();
+		recursiveSolver = null;
+	}
+	
+	protected void btnRunNeighbour_mouseClicked(MouseEvent arg0) {
+		NearestNeighbour neighbourSolver = new NearestNeighbour(Main.nodes);
+		neighbourSolver.solve();
+		neighbourSolver = null;
+	}
+	
+	protected void btnRunRandom_mouseClicked(MouseEvent arg0) {
+		Random randomSolver = new Random(Main.nodes);
+		randomSolver.solve();
+		randomSolver = null;
+	}
+	
+	protected void btnRunAnts_mouseClicked(MouseEvent arg0) {
+		AntColony antSolver = new AntColony();
+		antSolver.solve();
+		antSolver = null;
+	}
+	
 
 	private void handleKeyboardInput() {
 		
@@ -292,22 +394,19 @@ public class AnimationFrame extends JFrame {
 //		
 		
 		if (keyboard.keyDown(82)) {
-			Recursive recursiveSolver = new Recursive();
-			recursiveSolver.solve();
-			recursiveSolver = null;
+			btnRunRecursive_mouseClicked(null);
 		}
+		
 		if (keyboard.keyDown(78)) {
-			NearestNeighbour neighbourSolver = new NearestNeighbour(Main.nodes);
-			neighbourSolver.solve();
-		}
-		if (keyboard.keyDown(81)) {
-			AntColony antSolver = new AntColony();
-			antSolver.solve();
+			btnRunNeighbour_mouseClicked(null);
 		}
 		
 		if (keyboard.keyDown(90)) {
-			Random randomSolver = new Random(Main.nodes);
-			randomSolver.solve();
+			btnRunRandom_mouseClicked(null);
+		}
+		
+		if (keyboard.keyDown(81)) {
+			btnRunAnts_mouseClicked(null);
 		}
 	}
 

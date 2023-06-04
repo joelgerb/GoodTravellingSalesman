@@ -1,15 +1,36 @@
 import java.util.*;
 
 public class Recursive implements Solver {
-	 static ArrayList<Node> bestPath;
+	 static ArrayList<Node> bestPath = null;
 	 static Double bestLength;
 	
 		public Recursive() {
-		 this.bestPath = new ArrayList<Node>();
 		 this.bestLength = Double.POSITIVE_INFINITY;
 		}
 		
-		static ArrayList<Node> Generate ( ArrayList<Node> permutation, ArrayList<Node> elements, Boolean[] positions ) {
+		public void solve(){
+
+	        ArrayList<Node> permutation = new ArrayList<Node>();
+	        ArrayList<Node> elements = new ArrayList<Node>(Main.nodes);
+	        Boolean [] positions = new Boolean [Main.nodes.size()];
+	        
+	        Utilities.clearBestPaths();
+	        
+	        this.bestPath = new ArrayList<Node>();
+
+	        
+	        Arrays.fill(positions, Boolean.FALSE);
+
+
+		        Generate ( permutation, elements, positions );
+		        
+		        
+		   }
+
+
+
+		
+		private ArrayList<Node> Generate ( ArrayList<Node> permutation, ArrayList<Node> elements, Boolean[] positions ) {
 			ArrayList<Node> path = new ArrayList<Node>();
 		   
 	        if ( permutation.size() == elements.size() ) {
@@ -33,40 +54,22 @@ public class Recursive implements Solver {
 
         } else {
             for (int i = 0; i < elements.size(); i++ ) {
-                if ( positions[i] )
-                    continue;
+                if (! positions[i] ) {
+                	positions[i] = Boolean.TRUE;
+                    permutation.add(elements.get(i));
 
-                positions[i] = Boolean.TRUE;
-                permutation.add(elements.get(i));
+                    Generate( permutation, elements, positions );
 
-                Generate( permutation, elements, positions );
-
-                permutation.remove(permutation.size()-1);
-//                permutation.remove(permutation.size()-1);
-                positions[i] = Boolean.FALSE;
+                    permutation.remove(permutation.size()-1);
+//                    permutation.remove(permutation.size()-1);
+                    positions[i] = Boolean.FALSE;
+                }
+                
             }
         }
         return bestPath;
     }
-   public void solve(){
-
-        ArrayList<Node> permutation = new ArrayList<Node>();
-        ArrayList<Node> elements = new ArrayList<Node>(Main.nodes);
-        Boolean [] positions = new Boolean [Main.nodes.size()];
-
-        NearestNeighbour.bestPath = null;
-        Random.bestPath = null;
-        
-        Arrays.fill(positions, Boolean.FALSE);
-
-
-	        Generate ( permutation, elements, positions );
-	        
-	        
-	   }
-
-
-
+   
 }
 
 

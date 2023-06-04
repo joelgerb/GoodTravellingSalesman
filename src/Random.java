@@ -15,12 +15,12 @@ public class Random implements Solver {
 		Node firstNode = nodes.get(0);
 		Node currentNode = nodes.get(0);
 		Node nextNode;
-		bestPath = new ArrayList<Node>();
 		
 		ArrayList<Node> unvisitedNodes = new ArrayList<Node>(nodes);
 		
-		Recursive.bestPath = null;
-		NearestNeighbour.bestPath = null;
+		Utilities.clearBestPaths();
+        
+        this.bestPath = new ArrayList<Node>();
 		
 		bestPath.add(nodes.get(0));
 		unvisitedNodes.remove(0);
