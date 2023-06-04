@@ -4,22 +4,29 @@ public class Random implements Solver {
 	private ArrayList<Node> nodes;
 	static ArrayList<Node> bestPath = null;
 	
-	public Random(ArrayList<Node> nodes) {
-		this.nodes = nodes;
-		
-	}
+//	public Random(ArrayList<Node> nodes) {
+//		this.nodes = nodes;
+//		
+//	}
 	public void solve() {
 		
 		double totalDistance = 0;
-		Node firstNode = nodes.get(0);
-		Node currentNode = nodes.get(0);
+		Node firstNode;
+		Node currentNode;
 		Node nextNode;
-		bestPath = new ArrayList<Node>();
+		
+		this.nodes = (ArrayList<Node>) Main.nodes.clone();
 		
 		ArrayList<Node> unvisitedNodes = new ArrayList<Node>(nodes);
 		
-		Recursive.bestPath = null;
-		NearestNeighbour.bestPath = null;
+		
+		
+		firstNode = nodes.get(0);
+		currentNode = firstNode;
+		
+		Utilities.clearBestPaths();
+        
+        this.bestPath = new ArrayList<Node>();
 		
 		bestPath.add(nodes.get(0));
 		unvisitedNodes.remove(0);
@@ -39,6 +46,15 @@ public class Random implements Solver {
 		totalDistance += Utilities.distance(currentNode, firstNode);
 		
 		Utilities.printSolution(bestPath, totalDistance);
+		
+	}
+	@Override
+	public ArrayList<Node> getBestPath() {
+		return this.bestPath;
+	}
+	@Override
+	public void clearBestPath() {
+		this.bestPath = null;
 		
 	}
 }

@@ -39,4 +39,12 @@ public class Utilities {
 		
 		return totalDistance;
 	}
+	
+	public static void clearBestPaths() {
+		for (Solver solver : Main.solvers) {
+			solver.clearBestPath();
+		}
+		
+	}
+	
 }

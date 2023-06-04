@@ -21,14 +21,19 @@ public class AnimationFrame extends JFrame {
 	private int screenCenterX = SCREEN_WIDTH / 2;
 	private int screenCenterY = SCREEN_HEIGHT / 2;
 
-	private double scale = 0.99;
+	private double scale = 1.0;
 	//point in universe on which the screen will center
 	private double logicalCenterX = 0;		
 	private double logicalCenterY = 0;
 
 	//basic controls on interface... these are protected so that subclasses can access
 	protected JPanel panel = null;
-	protected JButton btnPauseRun;
+//	protected JButton btnPauseRun;
+	protected JButton btnRunRecursive;
+	protected JButton btnRunNeighbour;
+	protected JButton btnRunRandom;
+	protected JButton btnRunAnts;
+	protected JButton btnNewRandomNode;
 	protected JLabel lblTop;
 	protected JLabel lblBottom;
 
@@ -114,19 +119,114 @@ public class AnimationFrame extends JFrame {
 		panel.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		getContentPane().add(panel, BorderLayout.CENTER);
 
-		btnPauseRun = new JButton("||");
-		btnPauseRun.addMouseListener(new MouseAdapter() {
+//		btnPauseRun = new JButton("||");
+//		btnPauseRun.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent arg0) {
+//				btnPauseRun_mouseClicked(arg0);
+//			}
+//		});
+//
+//		btnPauseRun.setFont(new Font("Tahoma", Font.BOLD, 12));
+//		btnPauseRun.setBounds(SCREEN_WIDTH - 64, 20, 52, 32);
+//		btnPauseRun.setFocusable(false);
+//		getContentPane().add(btnPauseRun);
+//		getContentPane().setComponentZOrder(btnPauseRun, 0);
+		
+		
+		
+		
+		btnRunRecursive = new JButton("Recursive");
+		btnRunRecursive.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				btnPauseRun_mouseClicked(arg0);
+				btnRunRecursive_mouseClicked(arg0);
 			}
 		});
 
-		btnPauseRun.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnPauseRun.setBounds(SCREEN_WIDTH - 64, 20, 48, 32);
-		btnPauseRun.setFocusable(false);
-		getContentPane().add(btnPauseRun);
-		getContentPane().setComponentZOrder(btnPauseRun, 0);
+		btnRunRecursive.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRunRecursive.setBounds(SCREEN_WIDTH - 700, 20, 95, 40);
+		btnRunRecursive.setFocusable(false);
+		getContentPane().add(btnRunRecursive);
+		getContentPane().setComponentZOrder(btnRunRecursive, 0);
+		
+		
+		
+		
+		btnRunNeighbour = new JButton("Nearest Neighbour");
+		btnRunNeighbour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnRunNeighbour_mouseClicked(arg0);
+			}
+		});
+
+		btnRunNeighbour.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRunNeighbour.setBounds(SCREEN_WIDTH - 595, 20, 150, 40);
+		btnRunNeighbour.setFocusable(false);
+		getContentPane().add(btnRunNeighbour);
+		getContentPane().setComponentZOrder(btnRunNeighbour, 0);
+		
+		
+		
+		
+		btnRunRandom = new JButton("Random");
+		btnRunRandom.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnRunRandom_mouseClicked(arg0);
+			}
+		});
+
+		btnRunRandom.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRunRandom.setBounds(SCREEN_WIDTH - 435, 20, 95, 40);
+		btnRunRandom.setFocusable(false);
+		getContentPane().add(btnRunRandom);
+		getContentPane().setComponentZOrder(btnRunRandom, 0);
+		
+		
+		
+		btnRunAnts = new JButton("Ant Colony");
+		btnRunAnts.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnRunAnts_mouseClicked(arg0);
+			}
+		});
+
+		btnRunAnts.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRunAnts.setBounds(SCREEN_WIDTH - 330, 20, 100, 40);
+		btnRunAnts.setFocusable(false);
+		getContentPane().add(btnRunAnts);
+		getContentPane().setComponentZOrder(btnRunAnts, 0);
+		
+		
+		
+		btnRunRandom.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRunRandom.setBounds(SCREEN_WIDTH - 435, 20, 95, 40);
+		btnRunRandom.setFocusable(false);
+		getContentPane().add(btnRunRandom);
+		getContentPane().setComponentZOrder(btnRunRandom, 0);
+		
+		
+		
+		btnNewRandomNode = new JButton("New Random Node");
+		btnNewRandomNode.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnNewRandomNode_mouseClicked(arg0);
+			}
+		});
+
+		btnNewRandomNode.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnNewRandomNode.setBounds(SCREEN_WIDTH - 160, 20, 150, 40);
+		btnNewRandomNode.setFocusable(false);
+		getContentPane().add(btnNewRandomNode);
+		getContentPane().setComponentZOrder(btnNewRandomNode, 0);
+		
+		
+		
+		
 
 		lblTop = new JLabel("Time: ");
 		lblTop.setForeground(Color.WHITE);
@@ -249,25 +349,49 @@ public class AnimationFrame extends JFrame {
 
 	}
 
-	protected void btnPauseRun_mouseClicked(MouseEvent arg0) {
-		if (isPaused) {
-			isPaused = false;
-			this.btnPauseRun.setText("||");
-		}
-		else {
-			isPaused = true;
-			this.btnPauseRun.setText(">");
-		}
+//	protected void btnPauseRun_mouseClicked(MouseEvent arg0) {
+//		if (isPaused) {
+//			isPaused = false;
+//			this.btnPauseRun.setText("||");
+//		}
+//		else {
+//			isPaused = true;
+//			this.btnPauseRun.setText(">");
+//		}
+//	}
+	
+	protected void btnRunRecursive_mouseClicked(MouseEvent arg0) {
+		Main.solvers[Main.RECURSIVE_INDEX].solve();
 	}
+	
+	protected void btnRunNeighbour_mouseClicked(MouseEvent arg0) {
+		Main.solvers[Main.NEIGHBOUR_INDEX].solve();
+	}
+	
+	protected void btnRunRandom_mouseClicked(MouseEvent arg0) {
+		Main.solvers[Main.RANDOM_INDEX].solve();
+	}
+	
+	protected void btnRunAnts_mouseClicked(MouseEvent arg0) {
+		Main.solvers[Main.ANTS_INDEX].solve();
+	}
+	
+	protected void btnNewRandomNode_mouseClicked(MouseEvent arg0) {
+		Node sprite = new Node(Math.floor(Math.random() *((SCREEN_WIDTH - 10) - 30 + 1) + 30) - SCREEN_WIDTH / 2, Math.floor(Math.random() *((SCREEN_HEIGHT - 10) - 70 + 1) + 70) - SCREEN_HEIGHT / 2);
+	    Main.nodes.add(sprite);
+	    sprites.add(sprite);
+	}
+	
+	
 
 	private void handleKeyboardInput() {
 		
-		if (keyboard.keyDown(80) && ! isPaused) {
-			btnPauseRun_mouseClicked(null);	
-		}
-		if (keyboard.keyDown(79) && isPaused ) {
-			btnPauseRun_mouseClicked(null);
-		}
+//		if (keyboard.keyDown(80) && ! isPaused) {
+//			btnPauseRun_mouseClicked(null);	
+//		}
+//		if (keyboard.keyDown(79) && isPaused ) {
+//			btnPauseRun_mouseClicked(null);
+//		}
 		if (keyboard.keyDown(112)) {
 			scale *= 1.01;
 			contentPane_mouseMoved(null);
@@ -277,37 +401,38 @@ public class AnimationFrame extends JFrame {
 			contentPane_mouseMoved(null);
 		}
 		
-		if (keyboard.keyDown(65)) {
-			screenCenterX += 1;
-		}
-		if (keyboard.keyDown(68)) {
-			screenCenterX -= 1;
-		}
-		if (keyboard.keyDown(83)) {
-			screenCenterY += 1;
-		}
-		if (keyboard.keyDown(88)) {
-			screenCenterY -= 1;
-		}	
-		
+//		if (keyboard.keyDown(65)) {
+//			screenCenterX += 1;
+//		}
+//		if (keyboard.keyDown(68)) {
+//			screenCenterX -= 1;
+//		}
+//		if (keyboard.keyDown(83)) {
+//			screenCenterY += 1;
+//		}
+//		if (keyboard.keyDown(88)) {
+//			screenCenterY -= 1;
+//		}	
+//		
 		
 		if (keyboard.keyDown(82)) {
-			Recursive recursiveSolver = new Recursive();
-			recursiveSolver.solve();
-			recursiveSolver = null;
+			btnRunRecursive_mouseClicked(null);
 		}
+		
 		if (keyboard.keyDown(78)) {
-			NearestNeighbour neighbourSolver = new NearestNeighbour(Main.nodes);
-			neighbourSolver.solve();
-		}
-		if (keyboard.keyDown(81)) {
-			AntColony antSolver = new AntColony();
-			antSolver.solve();
+			btnRunNeighbour_mouseClicked(null);
 		}
 		
 		if (keyboard.keyDown(90)) {
-			Random randomSolver = new Random(Main.nodes);
-			randomSolver.solve();
+			btnRunRandom_mouseClicked(null);
+		}
+		
+		if (keyboard.keyDown(81)) {
+			btnRunAnts_mouseClicked(null);
+		}
+		
+		if (keyboard.keyDown(80)) {
+			btnNewRandomNode_mouseClicked(null);
 		}
 	}
 
@@ -342,56 +467,78 @@ public class AnimationFrame extends JFrame {
 				}				
 			}
 			
-			if (Recursive.bestPath != null) {
-				Node first = null;
-				Node last = null;
-				g.setColor(Color.WHITE);
-				for (Node node : Recursive.bestPath) {
-					if (last != null) {
-						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
-						
-					} else {
-						first = node;
-					}
-					
-					last = node;
-				}
-				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
-			}
 			
-			if (NearestNeighbour.bestPath != null) {
-				Node first = null;
-				Node last = null;
-				g.setColor(Color.WHITE);
-				for (Node node : NearestNeighbour.bestPath) {
-					if (last != null) {
-						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
+			for (Solver solver : Main.solvers) {
+				if (solver.getBestPath() != null) {
+
+//					Node first = null;
+					Node last = null;
+					g.setColor(Color.WHITE);
+					for (Node node : solver.getBestPath()) {
+						if (last != null) {
+							g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
+							
+//						} else {
+//							first = node;
+						}
 						
-					} else {
-						first = node;
+						last = node;
 					}
-					
-					last = node;
+//					g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
 				}
-				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
-			}
+				}
+//			}
 			
-			if (Random.bestPath != null) {
-				Node first = null;
-				Node last = null;
-				g.setColor(Color.WHITE);
-				for (Node node : Random.bestPath) {
-					if (last != null) {
-						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
-						
-					} else {
-						first = node;
-					}
-					
-					last = node;
-				}
-				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + 300, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + 300);
-			}
+//			if (Recursive.bestPath != null) {
+////				Node first = null;
+//				Node last = null;
+//				g.setColor(Color.WHITE);
+//				for (Node node : Recursive.bestPath) {
+//					if (last != null) {
+//						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
+//						
+////					} else {
+////						first = node;
+//					}
+//					
+//					last = node;
+//				}
+////				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
+//			}
+//			
+//			if (NearestNeighbour.bestPath != null) {
+////				Node first = null;
+//				Node last = null;
+//				g.setColor(Color.WHITE);
+//				for (Node node : NearestNeighbour.bestPath) {
+//					if (last != null) {
+//						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
+//						
+////					} else {
+////						first = node;
+//					}
+//					
+//					last = node;
+//				}
+////				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
+//			}
+//			
+//			if (Random.bestPath != null) {
+////				Node first = null;
+//				Node last = null;
+//				g.setColor(Color.WHITE);
+//				for (Node node : Random.bestPath) {
+//					if (last != null) {
+//						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
+//						
+////					} else {
+////						first = node;
+//					}
+//					
+//					last = node;
+//				}
+////				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + 300, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + 300);
+//			}
 		}
 		
 		private void paintBackground(Graphics g, Background background) {
