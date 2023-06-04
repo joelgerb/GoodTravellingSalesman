@@ -27,6 +27,8 @@ public class NearestNeighbour implements Solver {
 		
 		Utilities.clearBestPaths();
         
+		Utilities.startTime();
+		
         this.bestPath = new ArrayList<Node>();
 		
 		bestPath.add(nodes.get(0));
@@ -41,9 +43,13 @@ public class NearestNeighbour implements Solver {
 			bestPath.add(nextNode);
 			currentNode = nextNode;
 			unvisitedNodes.remove(currentNode);
+			
+			Utilities.updateTime();
 		}
 		bestPath.add(firstNode);
 		totalDistance += Utilities.distance(currentNode, firstNode);
+		
+		Utilities.finalUpdateTime(Utilities.pathLength(bestPath));
 		
 		Utilities.printSolution(bestPath, totalDistance);
 		

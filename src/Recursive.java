@@ -5,6 +5,9 @@ public class Recursive implements Solver {
 	private ArrayList<Node> bestPath = null;
 	static Double bestLength;
 	
+	
+	
+	
 //		public Recursive(ArrayList<Node> nodes) {
 //			this.nodes = nodes;
 //			this.bestLength = Double.POSITIVE_INFINITY;
@@ -24,11 +27,13 @@ public class Recursive implements Solver {
 
 	        
 	        Arrays.fill(positions, Boolean.FALSE);
-
-
-		        Generate ( permutation, nodes, positions );
+	        
+	        Utilities.startTime();
+	        
+	        Generate ( permutation, nodes, positions );
 		        
-		        
+	        Utilities.finalUpdateTime(bestLength);
+			
 		   }
 
 
@@ -36,6 +41,8 @@ public class Recursive implements Solver {
 		
 		private ArrayList<Node> Generate ( ArrayList<Node> permutation, ArrayList<Node> elements, Boolean[] positions ) {
 			ArrayList<Node> path = new ArrayList<Node>();
+			
+			Utilities.updateTime();
 		   
 	        if ( permutation.size() == elements.size() ) {
 	        	permutation.add(permutation.get(0));
@@ -71,19 +78,22 @@ public class Recursive implements Solver {
                 
             }
         }
+//	        updateTime();
         return bestPath;
     }
+		
+		
 
-		@Override
-		public ArrayList<Node> getBestPath() {
-			return this.bestPath;
-		}
+	@Override
+	public ArrayList<Node> getBestPath() {
+		return this.bestPath;
+	}
 
-		@Override
-		public void clearBestPath() {
-			this.bestPath = null;
-			
-		}
+	@Override
+	public void clearBestPath() {
+		this.bestPath = null;
+		
+	}
    
 }
 

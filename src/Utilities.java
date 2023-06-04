@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 
 public class Utilities {
-	
+	private static long started_time;
+	private static long current_time;
+	private static long actual_delta_time;
+	private static long last_refresh_time;
+	private static long elapsed_time = 0;
 	
 	public static double distance(double pointOneX, double pointOneY, double pointTwoX, double pointTwoY) {
 		double base = pointOneX - pointTwoX;
@@ -46,5 +50,40 @@ public class Utilities {
 		}
 		
 	}
+	
+	public static void startTime() {
+		elapsed_time = 0;
+		started_time = System.currentTimeMillis();
+		last_refresh_time = started_time;
+	}
+	
+	public static void updateTime() {
+		if (Main.runTimer) {
+			current_time = System.currentTimeMillis();
+			actual_delta_time = (current_time - last_refresh_time);
+			
+			if (actual_delta_time > 10) {
+				last_refresh_time = current_time;
+				elapsed_time += actual_delta_time;
+				AnimationFrame.lblBottom.setText(String.format("%9.2f", elapsed_time / 1000.0));
+			}
+		}
+		
+		
+
+	}
+	
+	public static void finalUpdateTime(Double bestLength) {
+		updateTime();
+		if (elapsed_time > 1000) {
+			AnimationFrame.lblBottom.setText(String.format("Distance: %.1f, Time: %.3f", bestLength, elapsed_time / 1000.0));
+
+		} else {
+			AnimationFrame.lblBottom.setText(String.format("Distance: %.1f, Time: %f", bestLength, elapsed_time / 1000.0));
+
+		}
+	}
+	
+	
 	
 }

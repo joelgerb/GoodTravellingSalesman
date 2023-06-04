@@ -19,7 +19,7 @@ public class Random implements Solver {
 		
 		ArrayList<Node> unvisitedNodes = new ArrayList<Node>(nodes);
 		
-		
+		Utilities.startTime();
 		
 		firstNode = nodes.get(0);
 		currentNode = firstNode;
@@ -41,9 +41,13 @@ public class Random implements Solver {
 			bestPath.add(nextNode);
 			currentNode = nextNode;
 			unvisitedNodes.remove(currentNode);
+			
+			Utilities.updateTime();
 		}
 		bestPath.add(firstNode);
 		totalDistance += Utilities.distance(currentNode, firstNode);
+		
+		Utilities.finalUpdateTime(Utilities.pathLength(bestPath));
 		
 		Utilities.printSolution(bestPath, totalDistance);
 		

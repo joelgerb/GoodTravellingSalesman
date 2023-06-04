@@ -35,7 +35,7 @@ public class AnimationFrame extends JFrame {
 	protected JButton btnRunAnts;
 	protected JButton btnNewRandomNode;
 	protected JLabel lblTop;
-	protected JLabel lblBottom;
+	static JLabel lblBottom;
 
 	private static boolean stop = false;
 
@@ -333,12 +333,14 @@ public class AnimationFrame extends JFrame {
 	protected void updateControls() {
 		
 		this.lblTop.setText(String.format("Time: %9.3f;  centerX: %5d; centerY: %5d;  scale: %3.3f", elapsed_time / 1000.0, screenCenterX, screenCenterY, scale));
-		this.lblBottom.setText(Integer.toString(universeLevel));
-		if (universe != null) {
-			this.lblBottom.setText(universe.toString());
-		}
+//		this.lblBottom.setText(Integer.toString(universeLevel));
+//		if (universe != null) {
+//			this.lblBottom.setText(universe.toString());
+//		}
 
 	}
+	
+
 
 	private void updateTime() {
 
@@ -348,6 +350,7 @@ public class AnimationFrame extends JFrame {
 		elapsed_time += actual_delta_time;
 
 	}
+	
 
 //	protected void btnPauseRun_mouseClicked(MouseEvent arg0) {
 //		if (isPaused) {
@@ -414,6 +417,9 @@ public class AnimationFrame extends JFrame {
 //			screenCenterY -= 1;
 //		}	
 //		
+		if (keyboard.keyDown(84)) {
+			Main.runTimer = !Main.runTimer;
+		}
 		
 		if (keyboard.keyDown(82)) {
 			btnRunRecursive_mouseClicked(null);
