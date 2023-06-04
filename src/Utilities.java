@@ -41,10 +41,10 @@ public class Utilities {
 	}
 	
 	public static void clearBestPaths() {
-		Recursive.bestPath = null;
-		NearestNeighbour.bestPath = null;
-        Random.bestPath = null;
-        AntColony.bestPath = null;
+		for (Solver solver : Main.solvers) {
+			solver.clearBestPath();
+		}
+		
 	}
 	
 }

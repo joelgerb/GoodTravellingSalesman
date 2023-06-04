@@ -361,27 +361,19 @@ public class AnimationFrame extends JFrame {
 //	}
 	
 	protected void btnRunRecursive_mouseClicked(MouseEvent arg0) {
-		Recursive recursiveSolver = new Recursive();
-		recursiveSolver.solve();
-		recursiveSolver = null;
+		Main.solvers[Main.RECURSIVE_INDEX].solve();
 	}
 	
 	protected void btnRunNeighbour_mouseClicked(MouseEvent arg0) {
-		NearestNeighbour neighbourSolver = new NearestNeighbour(Main.nodes);
-		neighbourSolver.solve();
-		neighbourSolver = null;
+		Main.solvers[Main.NEIGHBOUR_INDEX].solve();
 	}
 	
 	protected void btnRunRandom_mouseClicked(MouseEvent arg0) {
-		Random randomSolver = new Random(Main.nodes);
-		randomSolver.solve();
-		randomSolver = null;
+		Main.solvers[Main.RANDOM_INDEX].solve();
 	}
 	
 	protected void btnRunAnts_mouseClicked(MouseEvent arg0) {
-		AntColony antSolver = new AntColony();
-		antSolver.solve();
-		antSolver = null;
+		Main.solvers[Main.ANTS_INDEX].solve();
 	}
 	
 	protected void btnNewRandomNode_mouseClicked(MouseEvent arg0) {
@@ -476,60 +468,77 @@ public class AnimationFrame extends JFrame {
 			}
 			
 			
-//			for (Solver solver : solvers) {
-//				
+			for (Solver solver : Main.solvers) {
+				if (solver.getBestPath() != null) {
+
+//					Node first = null;
+					Node last = null;
+					g.setColor(Color.WHITE);
+					for (Node node : solver.getBestPath()) {
+						if (last != null) {
+							g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
+							
+//						} else {
+//							first = node;
+						}
+						
+						last = node;
+					}
+//					g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
+				}
+				}
 //			}
 			
-			if (Recursive.bestPath != null) {
-//				Node first = null;
-				Node last = null;
-				g.setColor(Color.WHITE);
-				for (Node node : Recursive.bestPath) {
-					if (last != null) {
-						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
-						
-//					} else {
-//						first = node;
-					}
-					
-					last = node;
-				}
-//				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
-			}
-			
-			if (NearestNeighbour.bestPath != null) {
-//				Node first = null;
-				Node last = null;
-				g.setColor(Color.WHITE);
-				for (Node node : NearestNeighbour.bestPath) {
-					if (last != null) {
-						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
-						
-//					} else {
-//						first = node;
-					}
-					
-					last = node;
-				}
-//				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
-			}
-			
-			if (Random.bestPath != null) {
-//				Node first = null;
-				Node last = null;
-				g.setColor(Color.WHITE);
-				for (Node node : Random.bestPath) {
-					if (last != null) {
-						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
-						
-//					} else {
-//						first = node;
-					}
-					
-					last = node;
-				}
-//				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + 300, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + 300);
-			}
+//			if (Recursive.bestPath != null) {
+////				Node first = null;
+//				Node last = null;
+//				g.setColor(Color.WHITE);
+//				for (Node node : Recursive.bestPath) {
+//					if (last != null) {
+//						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
+//						
+////					} else {
+////						first = node;
+//					}
+//					
+//					last = node;
+//				}
+////				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
+//			}
+//			
+//			if (NearestNeighbour.bestPath != null) {
+////				Node first = null;
+//				Node last = null;
+//				g.setColor(Color.WHITE);
+//				for (Node node : NearestNeighbour.bestPath) {
+//					if (last != null) {
+//						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
+//						
+////					} else {
+////						first = node;
+//					}
+//					
+//					last = node;
+//				}
+////				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
+//			}
+//			
+//			if (Random.bestPath != null) {
+////				Node first = null;
+//				Node last = null;
+//				g.setColor(Color.WHITE);
+//				for (Node node : Random.bestPath) {
+//					if (last != null) {
+//						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
+//						
+////					} else {
+////						first = node;
+//					}
+//					
+//					last = node;
+//				}
+////				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + 300, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + 300);
+//			}
 		}
 		
 		private void paintBackground(Graphics g, Background background) {
