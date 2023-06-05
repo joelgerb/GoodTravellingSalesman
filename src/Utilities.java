@@ -86,8 +86,24 @@ public class Utilities {
 
 
 	public static Node weightedSelection(Node currentNode, ArrayList<Node> unvisitedNodes) {
-		return null;
-		// Hot garbage that i will fix tommorow...
+		Double distancePower = 25.0;
+		Double totalWeight = 0.0;
+		for(Node node: unvisitedNodes) {
+			Double nodeDesirability = (1/distance(currentNode, node));
+			totalWeight += Math.pow(nodeDesirability, distancePower);
+		}
+		
+		int index = 0;
+		
+		for(double r = Math.random() * totalWeight; index < unvisitedNodes.size() - 1; index++) {
+			r-= (1/distance(currentNode, unvisitedNodes.get(index)));
+			
+			if(r <= 0.0) {
+				break;
+			}
+		}
+		
+		return unvisitedNodes.get(index);
 	}
 	
 	

@@ -1,25 +1,13 @@
 TODO LIST
 
--Create a system to add new nodes -IN PROGRESS
--Allow Solvers to access list of nodes.
--Implement Solver interface?
 -Try not to cry
 
--Implement Recursion
-	-Fix Bug where it doesn't add the last node to the path
-	-Fix bug that doesn't let you run two sorts in a row
 -Implement Ant Colony Optimization
-
--Input cleansing for adding new nodes etc.
-
+	-implement weighted distribution
+	
 -GUI
 
 
 -Settings to add:
 -show current test being run visually
 -edge weight
-
-
-
-g.setColor(Color.WHITE);
-g.drawLine(0,0, 200, 200);
