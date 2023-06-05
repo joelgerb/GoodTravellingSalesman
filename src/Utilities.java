@@ -83,6 +83,12 @@ public class Utilities {
 
 		}
 	}
+
+
+	public static Node weightedSelection(Node currentNode, ArrayList<Node> unvisitedNodes) {
+		return null;
+		// Hot garbage that i will fix tommorow...
+	}
 	
 	
 	
