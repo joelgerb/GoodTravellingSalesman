@@ -34,7 +34,7 @@ public class AnimationFrame extends JFrame {
 	protected JButton btnRunRandom;
 	protected JButton btnRunAnts;
 	protected JButton btnNewRandomNode;
-	protected JLabel lblTop;
+//	protected JLabel lblTop;
 	static JLabel lblBottom;
 
 	private static boolean stop = false;
@@ -145,7 +145,7 @@ public class AnimationFrame extends JFrame {
 		});
 
 		btnRunRecursive.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnRunRecursive.setBounds(SCREEN_WIDTH - 700, 20, 95, 40);
+		btnRunRecursive.setBounds(SCREEN_WIDTH / 2 - 300, 20, 95, 40);
 		btnRunRecursive.setFocusable(false);
 		getContentPane().add(btnRunRecursive);
 		getContentPane().setComponentZOrder(btnRunRecursive, 0);
@@ -162,7 +162,7 @@ public class AnimationFrame extends JFrame {
 		});
 
 		btnRunNeighbour.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnRunNeighbour.setBounds(SCREEN_WIDTH - 595, 20, 150, 40);
+		btnRunNeighbour.setBounds(SCREEN_WIDTH / 2 - 195, 20, 150, 40);
 		btnRunNeighbour.setFocusable(false);
 		getContentPane().add(btnRunNeighbour);
 		getContentPane().setComponentZOrder(btnRunNeighbour, 0);
@@ -179,7 +179,7 @@ public class AnimationFrame extends JFrame {
 		});
 
 		btnRunRandom.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnRunRandom.setBounds(SCREEN_WIDTH - 435, 20, 95, 40);
+		btnRunRandom.setBounds(SCREEN_WIDTH / 2 - 35, 20, 95, 40);
 		btnRunRandom.setFocusable(false);
 		getContentPane().add(btnRunRandom);
 		getContentPane().setComponentZOrder(btnRunRandom, 0);
@@ -195,18 +195,11 @@ public class AnimationFrame extends JFrame {
 		});
 
 		btnRunAnts.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnRunAnts.setBounds(SCREEN_WIDTH - 330, 20, 100, 40);
+		btnRunAnts.setBounds(SCREEN_WIDTH / 2 + 70, 20, 105, 40);
 		btnRunAnts.setFocusable(false);
 		getContentPane().add(btnRunAnts);
 		getContentPane().setComponentZOrder(btnRunAnts, 0);
 		
-		
-		
-		btnRunRandom.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnRunRandom.setBounds(SCREEN_WIDTH - 435, 20, 95, 40);
-		btnRunRandom.setFocusable(false);
-		getContentPane().add(btnRunRandom);
-		getContentPane().setComponentZOrder(btnRunRandom, 0);
 		
 		
 		
@@ -219,7 +212,7 @@ public class AnimationFrame extends JFrame {
 		});
 
 		btnNewRandomNode.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewRandomNode.setBounds(SCREEN_WIDTH - 160, 20, 150, 40);
+		btnNewRandomNode.setBounds(SCREEN_WIDTH / 2 + 340, 20, 150, 40);
 		btnNewRandomNode.setFocusable(false);
 		getContentPane().add(btnNewRandomNode);
 		getContentPane().setComponentZOrder(btnNewRandomNode, 0);
@@ -228,14 +221,14 @@ public class AnimationFrame extends JFrame {
 		
 		
 
-		lblTop = new JLabel("Time: ");
-		lblTop.setForeground(Color.WHITE);
-		lblTop.setFont(new Font("Consolas", Font.BOLD, 20));
-		lblTop.setBounds(16, 22, SCREEN_WIDTH - 16, 30);
-		getContentPane().add(lblTop);
-		getContentPane().setComponentZOrder(lblTop, 0);
+//		lblTop = new JLabel("Time: ");
+//		lblTop.setForeground(Color.WHITE);
+//		lblTop.setFont(new Font("Consolas", Font.BOLD, 20));
+//		lblTop.setBounds(16, 22, SCREEN_WIDTH - 16, 30);
+//		getContentPane().add(lblTop);
+//		getContentPane().setComponentZOrder(lblTop, 0);
 
-		lblBottom = new JLabel("Status");
+		lblBottom = new JLabel("Time");
 		lblBottom.setForeground(Color.WHITE);
 		lblBottom.setFont(new Font("Consolas", Font.BOLD, 30));
 		lblBottom.setBounds(16, SCREEN_HEIGHT - 30 - 16, SCREEN_WIDTH - 16, 36);
@@ -332,7 +325,7 @@ public class AnimationFrame extends JFrame {
 
 	protected void updateControls() {
 		
-		this.lblTop.setText(String.format("Time: %9.3f;  centerX: %5d; centerY: %5d;  scale: %3.3f", elapsed_time / 1000.0, screenCenterX, screenCenterY, scale));
+//		this.lblTop.setText(String.format("Time: %9.3f;  centerX: %5d; centerY: %5d;  scale: %3.3f", elapsed_time / 1000.0, screenCenterX, screenCenterY, scale));
 //		this.lblBottom.setText(Integer.toString(universeLevel));
 //		if (universe != null) {
 //			this.lblBottom.setText(universe.toString());
@@ -395,14 +388,14 @@ public class AnimationFrame extends JFrame {
 //		if (keyboard.keyDown(79) && isPaused ) {
 //			btnPauseRun_mouseClicked(null);
 //		}
-		if (keyboard.keyDown(112)) {
-			scale *= 1.01;
-			contentPane_mouseMoved(null);
-		}
-		if (keyboard.keyDown(113)) {
-			scale /= 1.01;
-			contentPane_mouseMoved(null);
-		}
+//		if (keyboard.keyDown(112)) {
+//			scale *= 1.01;
+//			contentPane_mouseMoved(null);
+//		}
+//		if (keyboard.keyDown(113)) {
+//			scale /= 1.01;
+//			contentPane_mouseMoved(null);
+//		}
 		
 //		if (keyboard.keyDown(65)) {
 //			screenCenterX += 1;
@@ -446,6 +439,7 @@ public class AnimationFrame extends JFrame {
 
 		public void paintComponent(Graphics g)
 		{	
+			
 			if (universe == null) {
 				return;
 			}
@@ -548,6 +542,8 @@ public class AnimationFrame extends JFrame {
 		}
 		
 		private void paintBackground(Graphics g, Background background) {
+			
+			
 			
 			if ((g == null) || (background == null)) {
 				return;
