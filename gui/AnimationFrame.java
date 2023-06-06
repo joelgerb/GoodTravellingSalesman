@@ -20,6 +20,10 @@ public class AnimationFrame extends JFrame {
 
 	private int screenCenterX = SCREEN_WIDTH / 2;
 	private int screenCenterY = SCREEN_HEIGHT / 2;
+	
+	static final int FPS_MIN = 0;
+	static final int FPS_MAX = 30;
+	static final int FPS_INIT = 15;    //initial frames per second
 
 	private double scale = 1.0;
 	//point in universe on which the screen will center
@@ -31,11 +35,16 @@ public class AnimationFrame extends JFrame {
 //	protected JButton btnPauseRun;
 	protected JButton btnRunRecursive;
 	protected JButton btnRunNeighbour;
+	protected JButton btnRunWeightedNeighbour;
 	protected JButton btnRunRandom;
 	protected JButton btnRunAnts;
 	protected JButton btnNewRandomNode;
 //	protected JLabel lblTop;
 	static JLabel lblBottom;
+	
+	
+	
+	JSlider framesPerSecond = new JSlider(JSlider.HORIZONTAL, FPS_MIN, FPS_MAX, FPS_INIT);
 
 	private static boolean stop = false;
 
@@ -145,7 +154,7 @@ public class AnimationFrame extends JFrame {
 		});
 
 		btnRunRecursive.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnRunRecursive.setBounds(SCREEN_WIDTH / 2 - 300, 20, 95, 40);
+		btnRunRecursive.setBounds(SCREEN_WIDTH / 2 - 530, 20, 95, 40);
 		btnRunRecursive.setFocusable(false);
 		getContentPane().add(btnRunRecursive);
 		getContentPane().setComponentZOrder(btnRunRecursive, 0);
@@ -162,10 +171,26 @@ public class AnimationFrame extends JFrame {
 		});
 
 		btnRunNeighbour.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnRunNeighbour.setBounds(SCREEN_WIDTH / 2 - 195, 20, 150, 40);
+		btnRunNeighbour.setBounds(SCREEN_WIDTH / 2 - 425, 20, 150, 40);
 		btnRunNeighbour.setFocusable(false);
 		getContentPane().add(btnRunNeighbour);
 		getContentPane().setComponentZOrder(btnRunNeighbour, 0);
+		
+		
+		
+		btnRunWeightedNeighbour = new JButton("Weighted Nearest Neighbour");
+		btnRunWeightedNeighbour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnRunWeightedNeighbour_mouseClicked(arg0);
+			}
+		});
+
+		btnRunWeightedNeighbour.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRunWeightedNeighbour.setBounds(SCREEN_WIDTH / 2 - 265, 20, 210, 40);
+		btnRunWeightedNeighbour.setFocusable(false);
+		getContentPane().add(btnRunWeightedNeighbour);
+		getContentPane().setComponentZOrder(btnRunWeightedNeighbour, 0);
 		
 		
 		
@@ -179,7 +204,7 @@ public class AnimationFrame extends JFrame {
 		});
 
 		btnRunRandom.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnRunRandom.setBounds(SCREEN_WIDTH / 2 - 35, 20, 95, 40);
+		btnRunRandom.setBounds(SCREEN_WIDTH / 2 - 45, 20, 95, 40);
 		btnRunRandom.setFocusable(false);
 		getContentPane().add(btnRunRandom);
 		getContentPane().setComponentZOrder(btnRunRandom, 0);
@@ -195,7 +220,7 @@ public class AnimationFrame extends JFrame {
 		});
 
 		btnRunAnts.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnRunAnts.setBounds(SCREEN_WIDTH / 2 + 70, 20, 105, 40);
+		btnRunAnts.setBounds(SCREEN_WIDTH / 2 + 60, 20, 105, 40);
 		btnRunAnts.setFocusable(false);
 		getContentPane().add(btnRunAnts);
 		getContentPane().setComponentZOrder(btnRunAnts, 0);
@@ -218,6 +243,16 @@ public class AnimationFrame extends JFrame {
 		getContentPane().setComponentZOrder(btnNewRandomNode, 0);
 		
 		
+//		framesPerSecond.addChangeListener();
+
+		//Turn on labels at major tick marks.
+		framesPerSecond.setMajorTickSpacing(10);
+		framesPerSecond.setMinorTickSpacing(1);
+		framesPerSecond.setPaintTicks(true);
+		framesPerSecond.setPaintLabels(true);
+		
+		panel.add(framesPerSecond);
+		getContentPane().add(framesPerSecond);
 		
 		
 
@@ -362,6 +397,10 @@ public class AnimationFrame extends JFrame {
 	
 	protected void btnRunNeighbour_mouseClicked(MouseEvent arg0) {
 		Main.solvers[Main.NEIGHBOUR_INDEX].solve();
+	}
+	
+	protected void btnRunWeightedNeighbour_mouseClicked(MouseEvent arg0) {
+		Main.solvers[Main.WEIGHTED_NEIGHBOUR_INDEX].solve();
 	}
 	
 	protected void btnRunRandom_mouseClicked(MouseEvent arg0) {
