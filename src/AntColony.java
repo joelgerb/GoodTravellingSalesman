@@ -2,11 +2,7 @@ import java.util.ArrayList;
 
 public class AntColony implements Solver {
 	private ArrayList<Node> nodes;
-	private ArrayList<Node> bestPath = null;
-	 
-//	public AntColony(ArrayList<Node> nodes) {
-//		this.nodes = nodes;
-//	}
+	private ArrayList<Node> bestPath;
 
 	public void solve() {
 		double totalDistance = 0;

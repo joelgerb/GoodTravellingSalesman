@@ -86,8 +86,9 @@ public class Utilities {
 
 
 	public static Node weightedSelection(Node currentNode, ArrayList<Node> unvisitedNodes) {
-		Double distancePower = 25.0;
+		Double distancePower = 100.0; //Bigger means less random
 		Double totalWeight = 0.0;
+		
 		for(Node node: unvisitedNodes) {
 			Double nodeDesirability = (1/distance(currentNode, node));
 			totalWeight += Math.pow(nodeDesirability, distancePower);
@@ -96,7 +97,7 @@ public class Utilities {
 		int index = 0;
 		
 		for(double r = Math.random() * totalWeight; index < unvisitedNodes.size() - 1; index++) {
-			r-= (1/distance(currentNode, unvisitedNodes.get(index)));
+			r-= Math.pow(1/distance(currentNode, unvisitedNodes.get(index)), distancePower);
 			
 			if(r <= 0.0) {
 				break;
