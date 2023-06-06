@@ -2,9 +2,13 @@ import java.util.ArrayList;
 
 public class WeightedNearestNeighbour implements Solver {
 	private ArrayList<Node> nodes;
+	private ArrayList<Node> currentPath;
 	private ArrayList<Node> bestPath;
 
 	public void solve() {
+		
+		for(int i = 0; i < 10000; i++) {
+		
 		double totalDistance = 0;
 		Node firstNode;
 		Node currentNode;
@@ -23,9 +27,9 @@ public class WeightedNearestNeighbour implements Solver {
         
 		Utilities.startTime();
 		
-        this.bestPath = new ArrayList<Node>();
+        this.currentPath = new ArrayList<Node>();
 		
-		bestPath.add(nodes.get(0));
+		currentPath.add(nodes.get(0));
 		unvisitedNodes.remove(0);
 		
 		 
@@ -34,19 +38,21 @@ public class WeightedNearestNeighbour implements Solver {
 			nextNode = Utilities.weightedSelection(currentNode, unvisitedNodes);
 			totalDistance += Utilities.distance(currentNode, nextNode);
 			
-			bestPath.add(nextNode);
+			currentPath.add(nextNode);
 			currentNode = nextNode;
 			unvisitedNodes.remove(currentNode);
 			
 			Utilities.updateTime();
 		}
-		bestPath.add(firstNode);
+		currentPath.add(firstNode);
 		totalDistance += Utilities.distance(currentNode, firstNode);
 		
+		if(Utilities.pathLength(bestPath) > totalDistance) {
+			bestPath = currentPath;
+		}
+		
+		}
 		Utilities.finalUpdateTime(Utilities.pathLength(bestPath));
-		
-		Utilities.printSolution(bestPath, totalDistance);
-		
 	}
 
 	@Override

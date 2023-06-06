@@ -5,6 +5,7 @@ public class AntColony implements Solver {
 	private ArrayList<Node> bestPath;
 
 	public void solve() {
+		
 		double totalDistance = 0;
 		Node firstNode;
 		Node currentNode;

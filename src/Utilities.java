@@ -86,7 +86,7 @@ public class Utilities {
 
 
 	public static Node weightedSelection(Node currentNode, ArrayList<Node> unvisitedNodes) {
-		Double distancePower = 100.0; //Bigger means less random
+		Double distancePower = 2.5; //Bigger means less random
 		Double totalWeight = 0.0;
 		
 		for(Node node: unvisitedNodes) {
