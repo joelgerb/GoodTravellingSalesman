@@ -21,9 +21,9 @@ public class AnimationFrame extends JFrame {
 	private int screenCenterX = SCREEN_WIDTH / 2;
 	private int screenCenterY = SCREEN_HEIGHT / 2;
 	
-	static final int FPS_MIN = 0;
-	static final int FPS_MAX = 30;
-	static final int FPS_INIT = 15;    //initial frames per second
+//	static final int FPS_MIN = 0;
+//	static final int FPS_MAX = 30;
+//	static final int FPS_INIT = 15;    //initial frames per second
 
 	private double scale = 1.0;
 	//point in universe on which the screen will center
@@ -44,7 +44,7 @@ public class AnimationFrame extends JFrame {
 	
 	
 	
-	JSlider framesPerSecond = new JSlider(JSlider.HORIZONTAL, FPS_MIN, FPS_MAX, FPS_INIT);
+//	private JSlider framesPerSecond;
 
 	private static boolean stop = false;
 
@@ -120,7 +120,7 @@ public class AnimationFrame extends JFrame {
 		});
 		
 		Container cp = getContentPane();
-		cp.setBackground(Color.BLACK);
+		cp.setBackground(Color.decode("#2C2929"));
 		cp.setLayout(null);
 
 		panel = new DrawPanel();
@@ -246,13 +246,27 @@ public class AnimationFrame extends JFrame {
 //		framesPerSecond.addChangeListener();
 
 		//Turn on labels at major tick marks.
-		framesPerSecond.setMajorTickSpacing(10);
-		framesPerSecond.setMinorTickSpacing(1);
-		framesPerSecond.setPaintTicks(true);
-		framesPerSecond.setPaintLabels(true);
+//		framesPerSecond = new JSlider(JSlider.HORIZONTAL, FPS_MIN, FPS_MAX, FPS_INIT);
+//		framesPerSecond.setMajorTickSpacing(10);
+//		framesPerSecond.setMinorTickSpacing(1);
+//		framesPerSecond.setPaintTicks(true);
+//		framesPerSecond.setPaintLabels(true);
 		
-		panel.add(framesPerSecond);
-		getContentPane().add(framesPerSecond);
+		// create a slider
+//		framesPerSecond = new JSlider();
+// 
+////        // paint the ticks and tracks
+////		framesPerSecond.setPaintTrack(true);
+////		framesPerSecond.setPaintTicks(true);
+////		framesPerSecond.setPaintLabels(true);
+//// 
+////        // set spacing
+////		framesPerSecond.setMajorTickSpacing(50);
+////		framesPerSecond.setMinorTickSpacing(5);
+// 
+//		
+//		panel.add(framesPerSecond);
+//		getContentPane().add(framesPerSecond);
 		
 		
 
