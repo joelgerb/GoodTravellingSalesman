@@ -7,6 +7,8 @@ public class Utilities {
 	private static long last_refresh_time;
 	private static long elapsed_time = 0;
 	
+	private double weightValue = AnimationFrame.WEIGHT_INIT;
+	
 	public static double distance(double pointOneX, double pointOneY, double pointTwoX, double pointTwoY) {
 		double base = pointOneX - pointTwoX;
 		double height = pointOneY - pointTwoY;

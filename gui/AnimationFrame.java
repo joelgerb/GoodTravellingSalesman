@@ -21,9 +21,9 @@ public class AnimationFrame extends JFrame {
 	private int screenCenterX = SCREEN_WIDTH / 2;
 	private int screenCenterY = SCREEN_HEIGHT / 2;
 	
-//	static final int FPS_MIN = 0;
-//	static final int FPS_MAX = 30;
-//	static final int FPS_INIT = 15;    //initial frames per second
+	static final double WEIGHT_MIN = 0;
+	static final double WEIGHT_MAX = 5;
+	static final double WEIGHT_INIT = 1;    //initial frames per second
 
 	private double scale = 1.0;
 	//point in universe on which the screen will center
@@ -44,7 +44,8 @@ public class AnimationFrame extends JFrame {
 	
 	
 	
-//	private JSlider framesPerSecond;
+	private JSlider weight;
+
 
 	private static boolean stop = false;
 
@@ -253,7 +254,11 @@ public class AnimationFrame extends JFrame {
 //		framesPerSecond.setPaintLabels(true);
 		
 		// create a slider
-//		framesPerSecond = new JSlider();
+		weight = new JSlider(JSlider.VERTICAL, (int) WEIGHT_MIN, (int) WEIGHT_MAX, (int) WEIGHT_INIT);
+		weight.setBounds(20, 100, 64 , SCREEN_HEIGHT / 2);		
+//		panel.add(framesPerSecond);
+		getContentPane().add(weight);
+		getContentPane().setComponentZOrder(weight, 0);
 // 
 ////        // paint the ticks and tracks
 ////		framesPerSecond.setPaintTrack(true);
