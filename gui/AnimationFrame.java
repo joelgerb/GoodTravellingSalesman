@@ -1,4 +1,7 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
@@ -22,8 +25,10 @@ public class AnimationFrame extends JFrame {
 	private int screenCenterY = SCREEN_HEIGHT / 2;
 	
 	static final double WEIGHT_MIN = 0;
-	static final double WEIGHT_MAX = 5;
-	static final double WEIGHT_INIT = 1;    //initial frames per second
+	static final double WEIGHT_MAX = 30;
+	static final double WEIGHT_INIT = 10;
+	static final double MODIFIER_FOR_SLIDER = 100.0;
+	private JLabel showWeight;
 
 	private double scale = 1.0;
 	//point in universe on which the screen will center
@@ -244,21 +249,38 @@ public class AnimationFrame extends JFrame {
 		getContentPane().setComponentZOrder(btnNewRandomNode, 0);
 		
 		
-//		framesPerSecond.addChangeListener();
+		
+		class SliderListener implements ChangeListener {
+		    
 
-		//Turn on labels at major tick marks.
-//		framesPerSecond = new JSlider(JSlider.HORIZONTAL, FPS_MIN, FPS_MAX, FPS_INIT);
-//		framesPerSecond.setMajorTickSpacing(10);
-//		framesPerSecond.setMinorTickSpacing(1);
-//		framesPerSecond.setPaintTicks(true);
-//		framesPerSecond.setPaintLabels(true);
+			@Override
+			public void stateChanged(ChangeEvent e) {
+			        JSlider source = (JSlider)e.getSource();
+			        if (!source.getValueIsAdjusting()) {
+			            Utilities.weightValue = source.getValue() / MODIFIER_FOR_SLIDER;
+			            showWeight.setText("Weight value is = " + Utilities.weightValue);
+			        }    
+			    
+				
+			}
+		}
+		
+		showWeight = new JLabel();
+		showWeight.setText("Weight value is = " + Utilities.weightValue);
+		showWeight.setForeground(Color.WHITE);
+		showWeight.setBounds(16, SCREEN_HEIGHT / 2 + 190, SCREEN_WIDTH - 16, 36);
+
 		
 		// create a slider
-		weight = new JSlider(JSlider.VERTICAL, (int) WEIGHT_MIN, (int) WEIGHT_MAX, (int) WEIGHT_INIT);
-		weight.setBounds(20, 100, 64 , SCREEN_HEIGHT / 2);		
-//		panel.add(framesPerSecond);
+		weight = new JSlider(JSlider.VERTICAL, (int) (WEIGHT_MIN * MODIFIER_FOR_SLIDER), (int) (WEIGHT_MAX * MODIFIER_FOR_SLIDER), (int) (WEIGHT_INIT * MODIFIER_FOR_SLIDER));
+		weight.setBounds(20, SCREEN_HEIGHT / 2 - 300, 64 , SCREEN_HEIGHT / 2);	
+		weight.addChangeListener(new SliderListener());
 		getContentPane().add(weight);
 		getContentPane().setComponentZOrder(weight, 0);
+		
+		
+		getContentPane().add(showWeight);
+		getContentPane().setComponentZOrder(showWeight, 0);
 // 
 ////        // paint the ticks and tracks
 ////		framesPerSecond.setPaintTrack(true);
@@ -431,7 +453,7 @@ public class AnimationFrame extends JFrame {
 	}
 	
 	protected void btnNewRandomNode_mouseClicked(MouseEvent arg0) {
-		Node sprite = new Node(Math.floor(Math.random() *((SCREEN_WIDTH - 10) - 30 + 1) + 30) - SCREEN_WIDTH / 2, Math.floor(Math.random() *((SCREEN_HEIGHT - 10) - 70 + 1) + 70) - SCREEN_HEIGHT / 2);
+		Node sprite = new Node(Math.floor(Math.random() *((SCREEN_WIDTH - 10) - 150 + 1) + 150) - SCREEN_WIDTH / 2, Math.floor(Math.random() *((SCREEN_HEIGHT - 10) - 70 + 1) + 70) - SCREEN_HEIGHT / 2);
 	    Main.nodes.add(sprite);
 	    sprites.add(sprite);
 	}
@@ -467,27 +489,39 @@ public class AnimationFrame extends JFrame {
 //		if (keyboard.keyDown(88)) {
 //			screenCenterY -= 1;
 //		}	
-//		
+//		https://stackoverflow.com/questions/15313469/java-keyboard-keycodes-list
+		
+		//T
 		if (keyboard.keyDown(84)) {
 			Main.runTimer = !Main.runTimer;
 		}
 		
+		//R
 		if (keyboard.keyDown(82)) {
 			btnRunRecursive_mouseClicked(null);
 		}
 		
+		//N
 		if (keyboard.keyDown(78)) {
 			btnRunNeighbour_mouseClicked(null);
 		}
 		
+		//W
+		if (keyboard.keyDown(87)) {
+			btnRunWeightedNeighbour_mouseClicked(null);
+		}
+		
+		//Z
 		if (keyboard.keyDown(90)) {
 			btnRunRandom_mouseClicked(null);
 		}
 		
+		//Q
 		if (keyboard.keyDown(81)) {
 			btnRunAnts_mouseClicked(null);
 		}
 		
+		//P
 		if (keyboard.keyDown(80)) {
 			btnNewRandomNode_mouseClicked(null);
 		}

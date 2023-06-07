@@ -7,7 +7,8 @@ public class Utilities {
 	private static long last_refresh_time;
 	private static long elapsed_time = 0;
 	
-	private double weightValue = AnimationFrame.WEIGHT_INIT;
+	static double weightValue = AnimationFrame.WEIGHT_INIT;
+//	static double weightValue = 200;
 	
 	public static double distance(double pointOneX, double pointOneY, double pointTwoX, double pointTwoY) {
 		double base = pointOneX - pointTwoX;
@@ -88,7 +89,7 @@ public class Utilities {
 
 
 	public static Node weightedSelection(Node currentNode, ArrayList<Node> unvisitedNodes) {
-		Double distancePower = 2.5; //Bigger means less random
+		Double distancePower = weightValue; //Bigger means less random
 		Double totalWeight = 0.0;
 		
 		for(Node node: unvisitedNodes) {

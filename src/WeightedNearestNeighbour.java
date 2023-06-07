@@ -4,6 +4,7 @@ public class WeightedNearestNeighbour implements Solver {
 	private ArrayList<Node> nodes;
 	private ArrayList<Node> currentPath;
 	private ArrayList<Node> bestPath;
+	private double bestDistance;
 
 	public void solve() {
 		
@@ -18,10 +19,13 @@ public class WeightedNearestNeighbour implements Solver {
 		
 		this.nodes = (ArrayList<Node>) Main.nodes.clone();
 		
+		
 		firstNode = nodes.get(0);
 		currentNode = firstNode;
 		
 		unvisitedNodes = new ArrayList<Node>(nodes);
+		
+		bestDistance = Double.POSITIVE_INFINITY;
 		
 		Utilities.clearBestPaths();
         
@@ -47,8 +51,9 @@ public class WeightedNearestNeighbour implements Solver {
 		currentPath.add(firstNode);
 		totalDistance += Utilities.distance(currentNode, firstNode);
 		
-		if(Utilities.pathLength(bestPath) > totalDistance) {
+		if(bestDistance > totalDistance) {
 			bestPath = currentPath;
+			bestDistance = Utilities.pathLength(bestPath);
 		}
 		
 		}
