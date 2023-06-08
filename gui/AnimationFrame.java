@@ -451,9 +451,11 @@ public class AnimationFrame extends JFrame {
 		Main.solvers[Main.RANDOM_INDEX].solve();
 	}
 	
-	protected void btnRunAnts_mouseClicked(MouseEvent arg0) {
-		Main.solvers[Main.ANTS_INDEX].solve();
-	}
+	//for future development
+	
+//	protected void btnRunAnts_mouseClicked(MouseEvent arg0) {
+//		Main.solvers[Main.ANTS_INDEX].solve();
+//	}
 	
 	protected void btnNewRandomNode_mouseClicked(MouseEvent arg0) {
 		Node sprite = new Node(Math.floor(Math.random() *((SCREEN_WIDTH - 10) - 150 + 1) + 150) - SCREEN_WIDTH / 2, Math.floor(Math.random() *((SCREEN_HEIGHT - 10) - 70 + 1) + 70) - SCREEN_HEIGHT / 2);
