@@ -2,12 +2,11 @@ TODO LIST
 
 -Try not to cry
 
--Implement Ant Colony Optimization
-	-implement weighted distribution
+-Null Checking
+
+-Count of #Nodes
+
+_-Make delay on buttons
+	-Togglabull
 	
--GUI
-
-
--Settings to add:
--show current test being run visually
--edge weight
+-Remove redundant code
