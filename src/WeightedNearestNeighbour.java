@@ -8,7 +8,7 @@ public class WeightedNearestNeighbour implements Solver {
 
 	public void solve() {
 		
-		for(int i = 0; i < 10000; i++) {
+		for(int i = 0; i < 10; i++) {
 		
 		double totalDistance = 0;
 		Node firstNode;
