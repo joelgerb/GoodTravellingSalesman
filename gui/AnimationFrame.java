@@ -16,8 +16,6 @@ import java.awt.event.MouseMotionAdapter;
 public class AnimationFrame extends JFrame {
 
 	final public static int FRAMES_PER_SECOND = 60;
-//	final public static int SCREEN_HEIGHT = 800;
-//	final public static int SCREEN_WIDTH = 1500;
 	final public static int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 100;
 	final public static int SCREEN_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 50;
 
@@ -46,7 +44,7 @@ public class AnimationFrame extends JFrame {
 	//for future development
 //	protected JButton btnRunAnts;
 	protected JButton btnNewRandomNode;
-//	protected JLabel lblTop;
+	protected JLabel lblNodes;
 	static JLabel lblBottom;
 	
 	
@@ -136,20 +134,7 @@ public class AnimationFrame extends JFrame {
 		panel.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		getContentPane().add(panel, BorderLayout.CENTER);
 
-//		btnPauseRun = new JButton("||");
-//		btnPauseRun.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent arg0) {
-//				btnPauseRun_mouseClicked(arg0);
-//			}
-//		});
-//
-//		btnPauseRun.setFont(new Font("Tahoma", Font.BOLD, 12));
-//		btnPauseRun.setBounds(SCREEN_WIDTH - 64, 20, 52, 32);
-//		btnPauseRun.setFocusable(false);
-//		getContentPane().add(btnPauseRun);
-//		getContentPane().setComponentZOrder(btnPauseRun, 0);
-		
+
 		
 		
 		
@@ -284,29 +269,20 @@ public class AnimationFrame extends JFrame {
 		
 		getContentPane().add(showWeight);
 		getContentPane().setComponentZOrder(showWeight, 0);
-// 
-////        // paint the ticks and tracks
-////		framesPerSecond.setPaintTrack(true);
-////		framesPerSecond.setPaintTicks(true);
-////		framesPerSecond.setPaintLabels(true);
-//// 
-////        // set spacing
-////		framesPerSecond.setMajorTickSpacing(50);
-////		framesPerSecond.setMinorTickSpacing(5);
-// 
-//		
-//		panel.add(framesPerSecond);
-//		getContentPane().add(framesPerSecond);
+
 		
 		
+		
+		
+		lblNodes = new JLabel("Nodes: ");
+		lblNodes.setForeground(Color.WHITE);
+		lblNodes.setFont(new Font("Consolas", Font.BOLD, 20));
+		lblNodes.setBounds(16, 22, SCREEN_WIDTH - 16, 30);
+		getContentPane().add(lblNodes);
+		getContentPane().setComponentZOrder(lblNodes, 0);
 
-//		lblTop = new JLabel("Time: ");
-//		lblTop.setForeground(Color.WHITE);
-//		lblTop.setFont(new Font("Consolas", Font.BOLD, 20));
-//		lblTop.setBounds(16, 22, SCREEN_WIDTH - 16, 30);
-//		getContentPane().add(lblTop);
-//		getContentPane().setComponentZOrder(lblTop, 0);
-
+		
+		
 		lblBottom = new JLabel("Time");
 		lblBottom.setForeground(Color.WHITE);
 		lblBottom.setFont(new Font("Consolas", Font.BOLD, 30));
@@ -404,11 +380,9 @@ public class AnimationFrame extends JFrame {
 
 	protected void updateControls() {
 		
-//		this.lblTop.setText(String.format("Time: %9.3f;  centerX: %5d; centerY: %5d;  scale: %3.3f", elapsed_time / 1000.0, screenCenterX, screenCenterY, scale));
-//		this.lblBottom.setText(Integer.toString(universeLevel));
-//		if (universe != null) {
-//			this.lblBottom.setText(universe.toString());
-//		}
+		this.lblNodes.setText(String.format("Nodes: %d", Main.nodes.size()));
+
+
 
 	}
 	
@@ -424,16 +398,6 @@ public class AnimationFrame extends JFrame {
 	}
 	
 
-//	protected void btnPauseRun_mouseClicked(MouseEvent arg0) {
-//		if (isPaused) {
-//			isPaused = false;
-//			this.btnPauseRun.setText("||");
-//		}
-//		else {
-//			isPaused = true;
-//			this.btnPauseRun.setText(">");
-//		}
-//	}
 	
 	protected void btnRunRecursive_mouseClicked(MouseEvent arg0) {
 		Main.solvers[Main.RECURSIVE_INDEX].solve();
@@ -467,33 +431,7 @@ public class AnimationFrame extends JFrame {
 
 	private void handleKeyboardInput() {
 		
-//		if (keyboard.keyDown(80) && ! isPaused) {
-//			btnPauseRun_mouseClicked(null);	
-//		}
-//		if (keyboard.keyDown(79) && isPaused ) {
-//			btnPauseRun_mouseClicked(null);
-//		}
-//		if (keyboard.keyDown(112)) {
-//			scale *= 1.01;
-//			contentPane_mouseMoved(null);
-//		}
-//		if (keyboard.keyDown(113)) {
-//			scale /= 1.01;
-//			contentPane_mouseMoved(null);
-//		}
-		
-//		if (keyboard.keyDown(65)) {
-//			screenCenterX += 1;
-//		}
-//		if (keyboard.keyDown(68)) {
-//			screenCenterX -= 1;
-//		}
-//		if (keyboard.keyDown(83)) {
-//			screenCenterY += 1;
-//		}
-//		if (keyboard.keyDown(88)) {
-//			screenCenterY -= 1;
-//		}	
+
 //		https://stackoverflow.com/questions/15313469/java-keyboard-keycodes-list
 		
 		//T
@@ -558,7 +496,6 @@ public class AnimationFrame extends JFrame {
 						else {
 							g.setColor(Color.BLUE);
 							g.fillRect(translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()));
-//							g.drawLine(translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getMaxX()), scaleLogicalY(sprite.getMaxY()));
 
 						}
 					}
@@ -569,74 +506,20 @@ public class AnimationFrame extends JFrame {
 			for (Solver solver : Main.solvers) {
 				if (solver.getBestPath() != null) {
 
-//					Node first = null;
+
 					Node last = null;
 					g.setColor(Color.WHITE);
 					for (Node node : solver.getBestPath()) {
 						if (last != null) {
 							g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
-							
-//						} else {
-//							first = node;
+
 						}
 						
 						last = node;
 					}
-//					g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
 				}
 				}
-//			}
-			
-//			if (Recursive.bestPath != null) {
-////				Node first = null;
-//				Node last = null;
-//				g.setColor(Color.WHITE);
-//				for (Node node : Recursive.bestPath) {
-//					if (last != null) {
-//						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
-//						
-////					} else {
-////						first = node;
-//					}
-//					
-//					last = node;
-//				}
-////				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
-//			}
-//			
-//			if (NearestNeighbour.bestPath != null) {
-////				Node first = null;
-//				Node last = null;
-//				g.setColor(Color.WHITE);
-//				for (Node node : NearestNeighbour.bestPath) {
-//					if (last != null) {
-//						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
-//						
-////					} else {
-////						first = node;
-//					}
-//					
-//					last = node;
-//				}
-////				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + SCREEN_HEIGHT / 2);
-//			}
-//			
-//			if (Random.bestPath != null) {
-////				Node first = null;
-//				Node last = null;
-//				g.setColor(Color.WHITE);
-//				for (Node node : Random.bestPath) {
-//					if (last != null) {
-//						g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + SCREEN_HEIGHT / 2, (int) node.getCenterX() + SCREEN_WIDTH / 2, (int) node.getCenterY() + SCREEN_HEIGHT / 2);
-//						
-////					} else {
-////						first = node;
-//					}
-//					
-//					last = node;
-//				}
-////				g.drawLine((int) last.getCenterX() + SCREEN_WIDTH / 2, (int) last.getCenterY() + 300, (int) first.getCenterX() + SCREEN_WIDTH / 2, (int) first.getCenterY() + 300);
-//			}
+
 		}
 		
 		private void paintBackground(Graphics g, Background background) {
