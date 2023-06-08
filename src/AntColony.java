@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 
 
-
 //This class is not implemented, it is only kept for future development
 public class AntColony implements Solver {
 	private ArrayList<Node> nodes;

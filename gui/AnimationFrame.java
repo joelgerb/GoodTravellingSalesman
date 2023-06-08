@@ -453,7 +453,6 @@ public class AnimationFrame extends JFrame {
 	
 	//for future development
 	
-	
 //	protected void btnRunAnts_mouseClicked(MouseEvent arg0) {
 //		Main.solvers[Main.ANTS_INDEX].solve();
 //	}
