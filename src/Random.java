@@ -4,10 +4,6 @@ public class Random implements Solver {
 	private ArrayList<Node> nodes;
 	static ArrayList<Node> bestPath = null;
 	
-//	public Random(ArrayList<Node> nodes) {
-//		this.nodes = nodes;
-//		
-//	}
 	public void solve() {
 		
 		double totalDistance = 0;

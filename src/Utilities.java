@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Utilities {
+	
 	private static long started_time;
 	private static long current_time;
 	private static long actual_delta_time;
@@ -8,7 +9,6 @@ public class Utilities {
 	private static long elapsed_time = 0;
 	
 	static double weightValue = AnimationFrame.WEIGHT_INIT;
-//	static double weightValue = 200;
 	
 	public static double distance(double pointOneX, double pointOneY, double pointTwoX, double pointTwoY) {
 		double base = pointOneX - pointTwoX;

@@ -4,11 +4,7 @@ public class NearestNeighbour implements Solver {
 	
 	private ArrayList<Node> nodes;
 	private ArrayList<Node> bestPath = null;
-	
-//	public NearestNeighbour(ArrayList<Node> nodes) {
-//		this.nodes = nodes;
-//		
-//	}
+
 	public void solve() {
 		
 		double totalDistance = 0;

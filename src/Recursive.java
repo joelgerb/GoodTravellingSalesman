@@ -5,14 +5,6 @@ public class Recursive implements Solver {
 	private ArrayList<Node> bestPath = null;
 	static Double bestLength;
 	
-	
-	
-	
-//		public Recursive(ArrayList<Node> nodes) {
-//			this.nodes = nodes;
-//			this.bestLength = Double.POSITIVE_INFINITY;
-//		}
-		
 		public void solve(){
 
 	        ArrayList<Node> permutation = new ArrayList<Node>();
