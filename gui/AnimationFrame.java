@@ -50,7 +50,10 @@ public class AnimationFrame extends JFrame {
 	
 	
 	private JSlider weight;
-
+	
+	
+	private static boolean buttonDelay = false;
+	private long lastKeyPress;
 
 	private static boolean stop = false;
 
@@ -61,6 +64,7 @@ public class AnimationFrame extends JFrame {
 	private long actual_delta_time = 0;							//MILLISECONDS
 	protected long elapsed_time = 0;
 	private boolean isPaused = false;
+	
 
 	protected KeyboardInput keyboard = new KeyboardInput();
 	protected Universe universe = null;
@@ -434,41 +438,57 @@ public class AnimationFrame extends JFrame {
 
 //		https://stackoverflow.com/questions/15313469/java-keyboard-keycodes-list
 		
-		//T
-		if (keyboard.keyDown(84)) {
-			Main.runTimer = !Main.runTimer;
+		if (!(buttonDelay) || lastKeyPress + 200 < current_time) {
+			//T
+			if (keyboard.keyDown(84)) {
+				setLastKeyPress();
+				Main.runTimer = !Main.runTimer;
+			}
+			
+			//R
+			if (keyboard.keyDown(82)) {
+				setLastKeyPress();
+				btnRunRecursive_mouseClicked(null);
+			}
+			
+			//N
+			if (keyboard.keyDown(78)) {
+				setLastKeyPress();
+				btnRunNeighbour_mouseClicked(null);
+			}
+			
+			//W
+			if (keyboard.keyDown(87)) {
+				setLastKeyPress();
+				btnRunWeightedNeighbour_mouseClicked(null);
+			}
+			
+			//Z
+			if (keyboard.keyDown(90)) {
+				setLastKeyPress();
+				btnRunRandom_mouseClicked(null);
+			}
+			
+			//for future development
+			//Q
+//			if (keyboard.keyDown(81)) {
+//				setLastKeyPress();
+//				btnRunAnts_mouseClicked(null);
+//			}
+			
+			//P
+			if (keyboard.keyDown(80)) {
+				setLastKeyPress();
+				btnNewRandomNode_mouseClicked(null);
+			}
 		}
 		
-		//R
-		if (keyboard.keyDown(82)) {
-			btnRunRecursive_mouseClicked(null);
-		}
 		
-		//N
-		if (keyboard.keyDown(78)) {
-			btnRunNeighbour_mouseClicked(null);
-		}
-		
-		//W
-		if (keyboard.keyDown(87)) {
-			btnRunWeightedNeighbour_mouseClicked(null);
-		}
-		
-		//Z
-		if (keyboard.keyDown(90)) {
-			btnRunRandom_mouseClicked(null);
-		}
-		
-		//for future development
-		//Q
-//		if (keyboard.keyDown(81)) {
-//			btnRunAnts_mouseClicked(null);
-//		}
-		
-		//P
-		if (keyboard.keyDown(80)) {
-			btnNewRandomNode_mouseClicked(null);
-		}
+
+	}
+	
+	private void setLastKeyPress() {
+		lastKeyPress = current_time;
 	}
 
 	class DrawPanel extends JPanel {
