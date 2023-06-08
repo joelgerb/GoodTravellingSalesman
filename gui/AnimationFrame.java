@@ -42,7 +42,9 @@ public class AnimationFrame extends JFrame {
 	protected JButton btnRunNeighbour;
 	protected JButton btnRunWeightedNeighbour;
 	protected JButton btnRunRandom;
-	protected JButton btnRunAnts;
+	
+	//for future development
+//	protected JButton btnRunAnts;
 	protected JButton btnNewRandomNode;
 //	protected JLabel lblTop;
 	static JLabel lblBottom;
@@ -216,20 +218,21 @@ public class AnimationFrame extends JFrame {
 		getContentPane().setComponentZOrder(btnRunRandom, 0);
 		
 		
+		//for future development
 		
-		btnRunAnts = new JButton("Ant Colony");
-		btnRunAnts.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				btnRunAnts_mouseClicked(arg0);
-			}
-		});
-
-		btnRunAnts.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnRunAnts.setBounds(SCREEN_WIDTH / 2 + 60, 20, 105, 40);
-		btnRunAnts.setFocusable(false);
-		getContentPane().add(btnRunAnts);
-		getContentPane().setComponentZOrder(btnRunAnts, 0);
+//		btnRunAnts = new JButton("Ant Colony");
+//		btnRunAnts.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent arg0) {
+//				btnRunAnts_mouseClicked(arg0);
+//			}
+//		});
+//
+//		btnRunAnts.setFont(new Font("Tahoma", Font.BOLD, 12));
+//		btnRunAnts.setBounds(SCREEN_WIDTH / 2 + 60, 20, 105, 40);
+//		btnRunAnts.setFocusable(false);
+//		getContentPane().add(btnRunAnts);
+//		getContentPane().setComponentZOrder(btnRunAnts, 0);
 		
 		
 		
@@ -448,9 +451,11 @@ public class AnimationFrame extends JFrame {
 		Main.solvers[Main.RANDOM_INDEX].solve();
 	}
 	
-	protected void btnRunAnts_mouseClicked(MouseEvent arg0) {
-		Main.solvers[Main.ANTS_INDEX].solve();
-	}
+	//for future development
+	
+//	protected void btnRunAnts_mouseClicked(MouseEvent arg0) {
+//		Main.solvers[Main.ANTS_INDEX].solve();
+//	}
 	
 	protected void btnNewRandomNode_mouseClicked(MouseEvent arg0) {
 		Node sprite = new Node(Math.floor(Math.random() *((SCREEN_WIDTH - 10) - 150 + 1) + 150) - SCREEN_WIDTH / 2, Math.floor(Math.random() *((SCREEN_HEIGHT - 10) - 70 + 1) + 70) - SCREEN_HEIGHT / 2);
@@ -516,10 +521,11 @@ public class AnimationFrame extends JFrame {
 			btnRunRandom_mouseClicked(null);
 		}
 		
+		//for future development
 		//Q
-		if (keyboard.keyDown(81)) {
-			btnRunAnts_mouseClicked(null);
-		}
+//		if (keyboard.keyDown(81)) {
+//			btnRunAnts_mouseClicked(null);
+//		}
 		
 		//P
 		if (keyboard.keyDown(80)) {
