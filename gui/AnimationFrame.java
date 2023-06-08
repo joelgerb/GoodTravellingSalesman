@@ -25,7 +25,7 @@ public class AnimationFrame extends JFrame {
 	private int screenCenterY = SCREEN_HEIGHT / 2;
 	
 	static final double WEIGHT_MIN = 0;
-	static final double WEIGHT_MAX = 30;
+	static final double WEIGHT_MAX = 5;
 	static final double WEIGHT_INIT = 10;
 	static final double MODIFIER_FOR_SLIDER = 100.0;
 	private JLabel showWeight;
