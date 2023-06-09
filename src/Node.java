@@ -9,12 +9,14 @@ public class Node implements DisplayableSprite {
 	private String name;
 	private boolean visited;
 	
-	private static Image image;	
+	private Image image;	
 	private double centerX = 0;
 	private double centerY = 0;
 	private double width = 25;
 	private double height = 25;
 	private boolean dispose = false;	
+	
+	static int numberOfNodes = 0;
 
 	private final double VELOCITY = 200;
 	
@@ -31,14 +33,34 @@ public class Node implements DisplayableSprite {
 		this.centerY = yPosition;
 		this.visited = false;
 		
+		if ((numberOfNodes % 100) + 1 == 100) {
+			try {
+				image = ImageIO.read(new File("res/pizza.jpg"));
+			} catch (IOException e) {
+				System.out.println(e.toString());
+			}
+		} 
+		
+		if ((numberOfNodes % 1000) + 1 == 1000) {
+			try {
+				image = ImageIO.read(new File("res/Peanut butterfly.png"));
+			} catch (IOException e) {
+				System.out.println(e.toString());
+			}
+		}
+		
 		if (image == null) {
 			try {
-				image = ImageIO.read(new File("res/node.png"));
-			}
+					image = ImageIO.read(new File("res/node.png"));
+				}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
-		}		
+		}
+		
+		numberOfNodes++;
+		Utilities.clearBestPaths();
+
 	}
 	
 	public Node getClosestNode(ArrayList<Node> nodes) {
@@ -47,7 +69,7 @@ public class Node implements DisplayableSprite {
 		
 		for(Node node: nodes) {
 			double distance = Utilities.distance(this.centerX, this.centerY, node.getXPosition(), node.getYPosition());
-			if(distance < closestDistance && distance != 0) {
+			if (distance < closestDistance) {
 				closestNode = node;
 				closestDistance = distance;
 			}

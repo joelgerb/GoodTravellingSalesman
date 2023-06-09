@@ -61,7 +61,6 @@ public class ShellUniverse implements Universe {
 
 		if (keyboard.keyDownOnce(27)) {
 			complete = true;
-			this.player1.setDispose(true);
 		}
 		
 		for (int i = 0; i < sprites.size(); i++) {

@@ -35,7 +35,10 @@ public class AnimationFrame extends JFrame {
 
 	//basic controls on interface... these are protected so that subclasses can access
 	protected JPanel panel = null;
-//	protected JButton btnPauseRun;
+	protected JButton btnToggleRunTimer;
+	protected JButton btnToggleKeyDelay;
+	protected JButton btnReset;
+	
 	protected JButton btnRunRecursive;
 	protected JButton btnRunNeighbour;
 	protected JButton btnRunWeightedNeighbour;
@@ -52,7 +55,7 @@ public class AnimationFrame extends JFrame {
 	private JSlider weight;
 	
 	
-	private static boolean buttonDelay = false;
+	private static boolean buttonDelay = true;
 	private long lastKeyPress;
 
 	private static boolean stop = false;
@@ -139,6 +142,67 @@ public class AnimationFrame extends JFrame {
 		getContentPane().add(panel, BorderLayout.CENTER);
 
 
+		
+		btnToggleRunTimer = new JButton("Run Timer");
+		if (Main.runTimer) {
+			btnToggleRunTimer.setText("Run Timer: ON");
+		} else {
+			btnToggleRunTimer.setText("Run Timer: OFF");
+		}
+		btnToggleRunTimer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnToggleRunTimer_mouseClicked(arg0);
+			}
+		});
+
+		btnToggleRunTimer.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnToggleRunTimer.setBounds(15, 500, 130, 40);
+		btnToggleRunTimer.setFocusable(false);
+		getContentPane().add(btnToggleRunTimer);
+		getContentPane().setComponentZOrder(btnToggleRunTimer, 0);
+		
+		
+		
+		
+		btnToggleKeyDelay = new JButton("Key Delay");
+		if (buttonDelay) {
+			btnToggleKeyDelay.setText("Key Delay: ON");
+		} else {
+			btnToggleKeyDelay.setText("Key Delay: OFF");
+		}
+		btnToggleKeyDelay.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnToggleKeyDelay_mouseClicked(arg0);
+			}
+		});
+
+		btnToggleKeyDelay.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnToggleKeyDelay.setBounds(15, 550, 130, 40);
+		btnToggleKeyDelay.setFocusable(false);
+		getContentPane().add(btnToggleKeyDelay);
+		getContentPane().setComponentZOrder(btnToggleKeyDelay, 0);
+		
+		
+		
+		
+		btnReset = new JButton("Reset");
+		btnReset.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnReset_mouseClicked(arg0);
+			}
+		});
+
+		btnReset.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnReset.setBounds(15, 600, 130, 40);
+		btnReset.setFocusable(false);
+		getContentPane().add(btnReset);
+		getContentPane().setComponentZOrder(btnReset, 0);
+		
+		
+		
 		
 		
 		
@@ -235,7 +299,7 @@ public class AnimationFrame extends JFrame {
 		});
 
 		btnNewRandomNode.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewRandomNode.setBounds(SCREEN_WIDTH / 2 + 340, 20, 150, 40);
+		btnNewRandomNode.setBounds(SCREEN_WIDTH / 2 + 150, 20, 150, 40);
 		btnNewRandomNode.setFocusable(false);
 		getContentPane().add(btnNewRandomNode);
 		getContentPane().setComponentZOrder(btnNewRandomNode, 0);
@@ -260,12 +324,12 @@ public class AnimationFrame extends JFrame {
 		showWeight = new JLabel();
 		showWeight.setText("Weight value is = " + Utilities.weightValue);
 		showWeight.setForeground(Color.WHITE);
-		showWeight.setBounds(16, SCREEN_HEIGHT / 2 + 190, SCREEN_WIDTH - 16, 36);
+		showWeight.setBounds(16, 100, SCREEN_WIDTH - 16, 36);
 
 		
 		// create a slider
 		weight = new JSlider(JSlider.VERTICAL, (int) (WEIGHT_MIN * MODIFIER_FOR_SLIDER), (int) (WEIGHT_MAX * MODIFIER_FOR_SLIDER), (int) (WEIGHT_INIT * MODIFIER_FOR_SLIDER));
-		weight.setBounds(20, SCREEN_HEIGHT / 2 - 300, 64 , SCREEN_HEIGHT / 2);	
+		weight.setBounds(20, 140, 20 , 350);	
 		weight.addChangeListener(new SliderListener());
 		getContentPane().add(weight);
 		getContentPane().setComponentZOrder(weight, 0);
@@ -401,28 +465,68 @@ public class AnimationFrame extends JFrame {
 
 	}
 	
+	
+	protected void btnToggleRunTimer_mouseClicked(MouseEvent arg0) {
+		Main.runTimer = !Main.runTimer;
+		
+		if (Main.runTimer) {
+			btnToggleRunTimer.setText("Run Timer: ON");
+		} else {
+			btnToggleRunTimer.setText("Run Timer: OFF");
+		}
+		
+	}
+	
+	protected void btnToggleKeyDelay_mouseClicked(MouseEvent arg0) {
+		buttonDelay = !buttonDelay;
+		
+		if (buttonDelay) {
+			btnToggleKeyDelay.setText("Key Delay: ON");
+		} else {
+			btnToggleKeyDelay.setText("Key Delay: OFF");
+		}
+	}
 
 	
+	protected void btnReset_mouseClicked(MouseEvent arg0) {
+		for(DisplayableSprite node : Main.nodes) {
+			node.setDispose(true);
+		}
+		Utilities.clearBestPaths();
+	}
+	
+	
+	
 	protected void btnRunRecursive_mouseClicked(MouseEvent arg0) {
-		Main.solvers[Main.RECURSIVE_INDEX].solve();
+		if (Main.nodes.size() > 0) {
+			Main.solvers[Main.RECURSIVE_INDEX].solve();
+		}
 	}
 	
 	protected void btnRunNeighbour_mouseClicked(MouseEvent arg0) {
-		Main.solvers[Main.NEIGHBOUR_INDEX].solve();
+		if (Main.nodes.size() > 0) {
+			Main.solvers[Main.NEIGHBOUR_INDEX].solve();
+		}
 	}
 	
 	protected void btnRunWeightedNeighbour_mouseClicked(MouseEvent arg0) {
-		Main.solvers[Main.WEIGHTED_NEIGHBOUR_INDEX].solve();
+		if (Main.nodes.size() > 0) {
+			Main.solvers[Main.WEIGHTED_NEIGHBOUR_INDEX].solve();
+		}
 	}
 	
 	protected void btnRunRandom_mouseClicked(MouseEvent arg0) {
-		Main.solvers[Main.RANDOM_INDEX].solve();
+		if (Main.nodes.size() > 0) {
+			Main.solvers[Main.RANDOM_INDEX].solve();
+		}
 	}
 	
 	//for future development
 	
 //	protected void btnRunAnts_mouseClicked(MouseEvent arg0) {
+//	if (Main.nodes.size() > 0) {
 //		Main.solvers[Main.ANTS_INDEX].solve();
+//	}
 //	}
 	
 	protected void btnNewRandomNode_mouseClicked(MouseEvent arg0) {
@@ -441,9 +545,29 @@ public class AnimationFrame extends JFrame {
 		if (!(buttonDelay) || lastKeyPress + 200 < current_time) {
 			//T
 			if (keyboard.keyDown(84)) {
-				setLastKeyPress();
-				Main.runTimer = !Main.runTimer;
+				if (lastKeyPress + 200 < current_time) {
+					setLastKeyPress();
+					btnToggleRunTimer_mouseClicked(null);
+				}
+				
 			}
+			
+			//K
+			if (keyboard.keyDown(75)) {
+				if (lastKeyPress + 200 < current_time) {
+					setLastKeyPress();
+					btnToggleKeyDelay_mouseClicked(null);
+				}
+				
+			}
+			
+			
+			//BackSpace
+			if (keyboard.keyDown(8)) {
+				setLastKeyPress();
+				btnReset_mouseClicked(null);
+			}
+			
 			
 			//R
 			if (keyboard.keyDown(82)) {
@@ -641,9 +765,18 @@ public class AnimationFrame extends JFrame {
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			MouseInput.leftButtonDown = true;
 			
-			Node sprite = new Node(MouseInput.logicalX, MouseInput.logicalY);
-		    Main.nodes.add(sprite);
-		    sprites.add(sprite);
+			boolean duplicate = false;
+			
+			for (Node node : Main.nodes) {
+				if (MouseInput.logicalX == node.getCenterX() && MouseInput.logicalY == node.getCenterY()) {
+					duplicate = true;
+				}
+			}
+			if (!duplicate) {
+				Node sprite = new Node(MouseInput.logicalX, MouseInput.logicalY);
+			    Main.nodes.add(sprite);
+			    sprites.add(sprite);
+			}
 		} else if (e.getButton() == MouseEvent.BUTTON3) {
 			MouseInput.rightButtonDown = true;
 			
@@ -651,7 +784,7 @@ public class AnimationFrame extends JFrame {
 				if (sprite.getMinX() < MouseInput.logicalX && MouseInput.logicalX < sprite.getMaxX()) {
 					if (sprite.getMinY() < MouseInput.logicalY && MouseInput.logicalY < sprite.getMaxY()) {
 						sprite.setDispose(true);
-						
+						Utilities.clearBestPaths();
 					}
 					
 				}
