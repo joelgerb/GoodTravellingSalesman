@@ -8,7 +8,10 @@ public class WeightedNearestNeighbour implements Solver {
 
 	public void solve() {
 		
-		for(int i = 0; i < 100; i++) {
+		Utilities.clearBestPaths();
+		bestDistance = Double.POSITIVE_INFINITY;
+		
+		for(int i = 0; i < 3; i++) {
 		
 		double totalDistance = 0;
 		Node firstNode;
@@ -24,10 +27,6 @@ public class WeightedNearestNeighbour implements Solver {
 		currentNode = firstNode;
 		
 		unvisitedNodes = new ArrayList<Node>(nodes);
-		
-		bestDistance = Double.POSITIVE_INFINITY;
-		
-		Utilities.clearBestPaths();
         
 		Utilities.startTime();
 		
@@ -53,7 +52,7 @@ public class WeightedNearestNeighbour implements Solver {
 		
 		if(bestDistance > totalDistance) {
 			bestPath = currentPath;
-			bestDistance = Utilities.pathLength(bestPath);
+			bestDistance = totalDistance;
 		}
 		
 		}

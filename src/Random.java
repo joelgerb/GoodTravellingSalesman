@@ -45,8 +45,6 @@ public class Random implements Solver {
 		
 		Utilities.finalUpdateTime(Utilities.pathLength(bestPath));
 		
-		Utilities.printSolution(bestPath, totalDistance);
-		
 	}
 	@Override
 	public ArrayList<Node> getBestPath() {
