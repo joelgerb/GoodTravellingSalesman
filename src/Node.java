@@ -35,7 +35,7 @@ public class Node implements DisplayableSprite {
 		
 		if ((numberOfNodes % 100) + 1 == 100) {
 			try {
-				image = ImageIO.read(new File("res/pizza.jpg"));
+				image = ImageIO.read(new File("res/YellowNode.png"));
 			} catch (IOException e) {
 				System.out.println(e.toString());
 			}
@@ -43,7 +43,7 @@ public class Node implements DisplayableSprite {
 		
 		if ((numberOfNodes % 1000) + 1 == 1000) {
 			try {
-				image = ImageIO.read(new File("res/Peanut butterfly.png"));
+				image = ImageIO.read(new File("res/RedNode.png"));
 			} catch (IOException e) {
 				System.out.println(e.toString());
 			}
