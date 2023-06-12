@@ -41,6 +41,7 @@ public class Node implements DisplayableSprite {
 			}
 		} 
 		
+		
 		if ((numberOfNodes % 1000) + 1 == 1000) {
 			try {
 				image = ImageIO.read(new File("res/RedNode.png"));
