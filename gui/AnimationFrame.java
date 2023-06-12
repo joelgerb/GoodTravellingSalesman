@@ -316,7 +316,7 @@ public class AnimationFrame extends JFrame {
 			            Utilities.weightValue = source.getValue() / MODIFIER_FOR_SLIDER;
 			            showWeight.setText("Weight value is = " + Utilities.weightValue);
 			        }    
-			    
+			   
 				
 			}
 		}
