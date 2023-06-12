@@ -4,6 +4,7 @@ import javax.swing.event.ChangeListener;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
@@ -631,18 +632,21 @@ public class AnimationFrame extends JFrame {
 			}
 
 			if (sprites != null) {
-				for (DisplayableSprite activeSprite : sprites) {
-					DisplayableSprite sprite = activeSprite;
-					if (sprite.getVisible()) {
-						if (sprite.getImage() != null) {
-							g.drawImage(sprite.getImage(), translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()), null);						
-						}
-						else {
-							g.setColor(Color.BLUE);
-							g.fillRect(translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()));
+				try {
+					for (DisplayableSprite activeSprite : sprites) {
+						DisplayableSprite sprite = activeSprite;
+						if (sprite.getVisible()) {
+							if (sprite.getImage() != null) {
+								g.drawImage(sprite.getImage(), translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()), null);						
+							}
+							else {
+								g.setColor(Color.BLUE);
+								g.fillRect(translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()));
 
+							}
 						}
 					}
+				} catch (ConcurrentModificationException e) {
 				}				
 			}
 			
