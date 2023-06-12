@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Main {
 	public static final int RECURSIVE_INDEX = 0;
 	public static final int NEIGHBOUR_INDEX = 1;
