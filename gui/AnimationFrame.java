@@ -48,6 +48,7 @@ public class AnimationFrame extends JFrame {
 	//for future development
 //	protected JButton btnRunAnts;
 	protected JButton btnNewRandomNode;
+	protected JButton btnThousandNewRandomNode;
 	protected JLabel lblNodes;
 	static JLabel lblBottom;
 	
@@ -307,6 +308,27 @@ public class AnimationFrame extends JFrame {
 		
 		
 		
+		
+		
+		btnThousandNewRandomNode = new JButton("1000 New Random Nodes");
+		btnThousandNewRandomNode.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnThousandNewRandomNode_mouseClicked(arg0);
+			}
+		});
+
+		btnThousandNewRandomNode.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnThousandNewRandomNode.setBounds(SCREEN_WIDTH / 2 + 350, 20, 190, 40);
+		btnThousandNewRandomNode.setFocusable(false);
+		getContentPane().add(btnThousandNewRandomNode);
+		getContentPane().setComponentZOrder(btnThousandNewRandomNode, 0);
+		
+		
+		
+		
+		
+		
 		class SliderListener implements ChangeListener {
 		    
 
@@ -534,6 +556,12 @@ public class AnimationFrame extends JFrame {
 		Node sprite = new Node(Math.floor(Math.random() *((SCREEN_WIDTH - 10) - 150 + 1) + 150) - SCREEN_WIDTH / 2, Math.floor(Math.random() *((SCREEN_HEIGHT - 10) - 70 + 1) + 70) - SCREEN_HEIGHT / 2);
 	    Main.nodes.add(sprite);
 	    sprites.add(sprite);
+	}
+	
+	protected void btnThousandNewRandomNode_mouseClicked(MouseEvent arg0) {
+		for (int i = 0; i < 1000; i++) {
+			btnNewRandomNode_mouseClicked(null);
+		}
 	}
 	
 
