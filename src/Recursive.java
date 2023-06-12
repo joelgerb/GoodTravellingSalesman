@@ -42,11 +42,11 @@ public class Recursive implements Solver {
 	            for ( int i = 0; i < permutation.size(); i++ ) {
 	            	path.add(permutation.get(i));
 	            }
-	                
+	            
+	            //Put repaint here
+	            
             	Double pathLength = Utilities.pathLength(path);
 	            if(pathLength < bestLength) {
-	            	
-	            	System.out.println("New best path");
 	            	bestPath = path;
 	            	bestLength = pathLength;
 	            	Utilities.printSolution(bestPath, pathLength);

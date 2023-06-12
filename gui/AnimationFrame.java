@@ -536,7 +536,6 @@ public class AnimationFrame extends JFrame {
 	    sprites.add(sprite);
 	}
 	
-	
 
 	private void handleKeyboardInput() {
 		
