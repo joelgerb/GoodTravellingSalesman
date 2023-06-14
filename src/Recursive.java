@@ -49,7 +49,6 @@ public class Recursive implements Solver {
 	            if(pathLength < bestLength) {
 	            	bestPath = path;
 	            	bestLength = pathLength;
-	            	Utilities.printSolution(bestPath, pathLength);
 	            }
 	            permutation.remove(permutation.size()-1);
 	            

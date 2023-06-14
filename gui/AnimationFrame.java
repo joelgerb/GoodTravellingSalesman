@@ -319,7 +319,7 @@ public class AnimationFrame extends JFrame {
 		});
 
 		btnThousandNewRandomNode.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnThousandNewRandomNode.setBounds(SCREEN_WIDTH / 2 + 350, 20, 190, 40);
+		btnThousandNewRandomNode.setBounds(SCREEN_WIDTH / 2 + 350, 20, 200, 40);
 		btnThousandNewRandomNode.setFocusable(false);
 		getContentPane().add(btnThousandNewRandomNode);
 		getContentPane().setComponentZOrder(btnThousandNewRandomNode, 0);
